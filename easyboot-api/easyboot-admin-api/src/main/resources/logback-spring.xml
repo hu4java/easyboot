@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration  scan="true" scanPeriod="60 seconds" debug="false">
-    <property name="app.name" value="huboot-admin-api" />
+    <property name="app.name" value="easyboot-admin-api" />
     <contextName>${app.name}</contextName>
     <!-- 日志输出路径 -->
     <property name="log.path" value="${LOG_PATH}" />

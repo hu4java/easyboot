@@ -23,5 +23,9 @@
       <groupId>org.dom4j</groupId>
       <artifactId>dom4j</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>jcodemodel</artifactId>
+    </dependency>
   </dependencies>
 </project>

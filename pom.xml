@@ -42,6 +42,7 @@
         <qiniu.version>7.2.29</qiniu.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <dom4j.version>2.1.3</dom4j.version>
+        <jcodemodel.version>3.4.0</jcodemodel.version>
     </properties>
 
     <dependencyManagement>
@@ -131,6 +132,11 @@
                 <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
                 <version>${dom4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.helger</groupId>
+                <artifactId>jcodemodel</artifactId>
+                <version>${jcodemodel.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
