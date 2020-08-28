@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.9.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.hu4java</groupId>
+    <artifactId>easyboot</artifactId>
+    <version>1.0.0</version>
+    <name>easyboot</name>
+    <packaging>pom</packaging>
+    <description>EasyBoot</description>
+
+    <modules>
+        <module>easyboot-framework</module>
+        <module>easyboot-common</module>
+        <module>easyboot-modules</module>
+        <module>easyboot-api</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <mybatis.version>3.5.5</mybatis.version>
+        <mybatis-spring.version>2.0.5</mybatis-spring.version>
+        <mybatis-boot.version>2.1.3</mybatis-boot.version>
+        <mybatis-plus-boot.version>3.4.0</mybatis-plus-boot.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
+        <druid-boot.version>1.1.23</druid-boot.version>
+        <orika-boot.version>1.9.0</orika-boot.version>
+        <shiro-web-boot.version>1.6.0</shiro-web-boot.version>
+        <shiro.version>1.6.0</shiro.version>
+        <gson.version>2.8.6</gson.version>
+        <commons-lang3.version>3.11</commons-lang3.version>
+        <commons-io.version>2.7</commons-io.version>
+        <commons-pool2.version>2.8.1</commons-pool2.version>
+        <qiniu.version>7.2.29</qiniu.version>
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <dom4j.version>2.1.3</dom4j.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.rakugakibox.spring.boot</groupId>
+                <artifactId>orika-spring-boot-starter</artifactId>
+                <version>${orika-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring-boot-web-starter</artifactId>
+                <version>${shiro-web-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>${qiniu.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>mybatis</artifactId>
+                <groupId>org.mybatis</groupId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>mybatis-spring</artifactId>
+                <groupId>org.mybatis</groupId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${dom4j.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+</project>

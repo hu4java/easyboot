@@ -1,0 +1,23 @@
+server:
+  port: 8900
+  servlet:
+    context-path: /admin
+spring:
+  application:
+    name: EasyBootAdminApi
+  profiles:
+    active: "@spring.profiles.active@"
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    locale: zh_CN
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-super-type: com.hu4java.base.entity.BaseEntity
+  type-aliases-package: com.hu4java.*.entity
+  global-config:
+    banner: false
+

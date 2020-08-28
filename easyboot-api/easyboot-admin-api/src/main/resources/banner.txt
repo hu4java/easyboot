@@ -1,0 +1,7 @@
+
+${AnsiColor.BRIGHT_YELLOW}  _   _           ${AnsiColor.CYAN} ____                    _
+${AnsiColor.BRIGHT_YELLOW} | | | |  _   _   ${AnsiColor.CYAN}| __ )    ___     ___   | |_
+${AnsiColor.BRIGHT_YELLOW} | |_| | | | | |  ${AnsiColor.CYAN}|  _ \   / _ \   / _ \  | __|
+${AnsiColor.BRIGHT_YELLOW} |  _  | | |_| |  ${AnsiColor.CYAN}| |_) | | (_) | | (_) | | |_
+${AnsiColor.BRIGHT_YELLOW} |_| |_|  \__,_|  ${AnsiColor.CYAN}|____/   \___/   \___/   \__|
+${AnsiColor.BRIGHT_YELLOW}                  ${AnsiColor.CYAN}
