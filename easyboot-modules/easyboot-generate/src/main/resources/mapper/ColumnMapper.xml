@@ -19,6 +19,7 @@
         select <include refid="allColumnSql"/>
         from information_schema.COLUMNS t
         where t.table_schema = database() and t.table_name = #{tableName}
+        ORDER BY t.ORDINAL_POSITION
     </select>
 
 </mapper>

@@ -3,7 +3,10 @@ package com.hu4java.generate.helper;
 import com.hu4java.common.constant.DateConstants;
 import com.hu4java.generate.entity.Column;
 import com.hu4java.generate.entity.Table;
+import org.apache.commons.io.IOUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -32,15 +35,15 @@ public class CodeHelper {
         // 类主体
         sb.append("@Getter\n");
         sb.append("@Setter\n");
-        sb.append("@TableName(\"" + table.getName() + "\")\n");
-        sb.append("public class " + table.entityName() + " extends BaseEntity {\n");
+        sb.append("@TableName(\"").append(table.getName()).append("\")\n");
+        sb.append("public class ").append(table.entityName()).append(" extends BaseEntity {\n");
         sb.append("\tprivate static final long serialVersionUID = -1L;\n\n");
 
         // 字段
         for (Column column : table.getColumnList()) {
             String javaType = javaType(column.getType());
-            sb.append("\t/** " + column.getComment() + " */\n");
-            sb.append("\tprivate " + javaType + " " + column.getFieldName() + ";\n\n");
+            sb.append("\t/** ").append(column.getComment()).append(" */\n");
+            sb.append("\tprivate ").append(javaType).append(" ").append(column.getFieldName()).append(";\n\n");
         }
 
         sb.append("}");
@@ -50,64 +53,67 @@ public class CodeHelper {
     public static String buildMapper(String prefixPackage, Table table) {
         StringBuilder sb = new StringBuilder();
         // package
-        sb.append("package " + prefixPackage + ".mapper;\n\n");
+        sb.append("package ").append(prefixPackage).append(".mapper;\n\n");
 
         // import
         sb.append("import com.hu4java.base.mapper.BaseMapper;\n");
-        sb.append("import " + prefixPackage + ".entity."+ table.entityName() +";\n");
+        sb.append("import ").append(prefixPackage).append(".entity.").append(table.entityName()).append(";\n");
         sb.append("import org.springframework.stereotype.Repository;\n\n");
 
         // 注释
         sb.append(buildClassComment(table.getComment()));
         sb.append("@Repository\n");
-        sb.append("public interface " + table.mapperName() + " extends BaseMapper<"+ table.entityName() +"> {\n\n}");
+        sb.append("public interface ").append(table.mapperName()).append(" extends BaseMapper<")
+                .append(table.entityName()).append("> {\n\n}");
         return sb.toString();
     }
 
     public static String buildService(String prefixPackage, Table table) {
         StringBuilder sb = new StringBuilder();
         // package
-        sb.append("package " + prefixPackage + ".service;\n\n");
+        sb.append("package ").append(prefixPackage).append(".service;\n\n");
 
         // import
         sb.append("import com.hu4java.base.service.BaseService;\n");
-        sb.append("import " + prefixPackage + ".entity."+ table.entityName() +";\n");
+        sb.append("import ").append(prefixPackage).append(".entity.").append(table.entityName()).append(";\n");
 
         // 注释
         sb.append(buildClassComment(table.getComment()));
-        sb.append("public interface " + table.serviceName() + " extends BaseService<"+ table.entityName() +"> {\n\n}");
+        sb.append("public interface ").append(table.serviceName()).append(" extends BaseService<")
+                .append(table.entityName()).append("> {\n\n}");
+
         return sb.toString();
     }
 
     public static String buildServiceImpl(String prefixPackage, Table table) {
         StringBuilder sb = new StringBuilder();
         // package
-        sb.append("package " + prefixPackage + ".service.impl;\n\n");
+        sb.append("package ").append(prefixPackage).append(".service.impl;\n\n");
 
         // import
         sb.append("import com.hu4java.base.service.impl.AbstractServiceImpl;\n");
-        sb.append("import " + prefixPackage + ".service."+ table.serviceName() +";\n");
-        sb.append("import " + prefixPackage + ".entity."+ table.entityName() +";\n");
-        sb.append("import " + prefixPackage + ".mapper."+ table.mapperName() +";\n");
+        sb.append("import ").append(prefixPackage).append(".service.").append(table.serviceName()).append(";\n");
+        sb.append("import ").append(prefixPackage).append(".entity.").append(table.entityName()).append(";\n");
+        sb.append("import ").append(prefixPackage).append(".mapper.").append(table.mapperName()).append(";\n");
         sb.append("import org.springframework.stereotype.Service;\n\n");
 
         // 注释
         sb.append(buildClassComment(table.getComment()));
         sb.append("@Service\n");
-        sb.append("public class " + table.serviceImplName()
-                + " extends AbstractServiceImpl<" + table.entityName() +", "
-                + table.mapperName() +"> implements "
-                + table.serviceName() + " {\n\n}");
+        sb.append("public class ").append(table.serviceImplName()).append(" extends AbstractServiceImpl<")
+                .append(table.entityName()).append(", ")
+                .append(table.mapperName()).append("> implements ")
+                .append(table.serviceName()).append(" {\n\n}");
         return sb.toString();
     }
 
     public static String buildController(String prefixPackage, Table table) {
         StringBuilder sb = new StringBuilder();
         // package
-        sb.append("package " + prefixPackage + ".controller;\n\n");
+        sb.append("package ").append(prefixPackage).append(".controller;\n\n");
 
         // import
-        sb.append("import " + prefixPackage + ".service." + table.serviceName() + ";\n");
+        sb.append("import ").append(prefixPackage).append(".service.").append(table.serviceName()).append(";\n");
         sb.append("import com.hu4java.common.result.Result;\n");
         sb.append("import org.springframework.beans.factory.annotation.Autowired;\n");
         sb.append("import org.springframework.web.bind.annotation.GetMapping;\n");
@@ -117,18 +123,23 @@ public class CodeHelper {
         // 注释
         sb.append(buildClassComment(table.getComment()));
         sb.append("@RestController\n");
-        sb.append("@RequestMapping(\"/" + table.getName() +"\")\n");
-        sb.append("public class " + table.controllerName() + "{\n\n}");
+        sb.append("@RequestMapping(\"/").append(table.getName()).append("\")\n");
+        sb.append("public class ").append(table.controllerName()).append(" {\n\n}");
         return sb.toString();
     }
 
+    /**
+     * 类注释
+     * @param comment   注释
+     * @return
+     */
     public static String buildClassComment(String comment) {
         String createTime = DateTimeFormatter.ofPattern(DateConstants.DEFAULT_DATE_TIME_FORMAT).format(LocalDateTime.now());
         StringBuilder sb = new StringBuilder();
         sb.append("/**\n");
-        sb.append(" * " + comment + "\n");
-        sb.append(" * @author\tEasyBoot生成\n");
-        sb.append(" * @date\t" + createTime + "\n");
+        sb.append(" * ").append(comment).append("\n");
+        sb.append(" * @author\tEasyBoot\n");
+        sb.append(" * @date\t").append(createTime).append("\n");
         sb.append(" */\n");
         return sb.toString();
     }
@@ -152,7 +163,7 @@ public class CodeHelper {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Table table = new Table();
         table.setComment("表");
         table.setName("sys_table");
@@ -189,6 +200,8 @@ public class CodeHelper {
 
         String controller = CodeHelper.buildController("com.hu4java.test", table);
         System.out.println(controller);
+
+        IOUtils.write(entity.getBytes("UTF-8"), new FileOutputStream(new File("d:/entity.java")));
 
     }
 }

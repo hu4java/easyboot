@@ -4,6 +4,7 @@ import com.hu4java.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -20,10 +21,14 @@ public class Table {
     private String comment;
     /** 数据库*/
     private String schema;
-    /** 列*/
-    private List<Column> columnList;
+    /** 创建时间*/
+    private LocalDateTime createTime;
+    /** 字符集*/
+    private String collation;
 
     private boolean removePrefix;
+
+    private List<Column> columnList;
 
     public String entityName() {
         if (null == name || "".equals(name.trim())) {

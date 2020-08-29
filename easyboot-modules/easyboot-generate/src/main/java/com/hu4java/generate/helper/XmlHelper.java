@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class XmlHelper {
 
-    public static Document buildMapperXml(String prefixPackage, Table table) {
+    public static Document buildMapper(String prefixPackage, Table table) {
         Document document = DocumentHelper.createDocument();
         document.addDocType("mapper", "-//mybatis.org//DTD Mapper 3.0//EN", "http://mybatis.org/dtd/mybatis-3-mapper.dtd");
         Element mapper = document.addElement("mapper");
@@ -29,18 +29,28 @@ public class XmlHelper {
         resultMap.addAttribute("type", table.typeName());
         resultMap.addAttribute("extends", "BaseEntity.entity");
 
-        StringBuilder sb = new StringBuilder();
+        Element allColumnSql = mapper.addElement("sql");
+        allColumnSql.addAttribute("id", "allColumnSql");
+
+        StringBuilder sb = new StringBuilder("\n");
+        sb.append("\t\tt.id,\n");
+        sb.append("\t\tt.create_by,\n");
+        sb.append("\t\tt.create_time,\n");
+        sb.append("\t\tt.update_by,\n");
+        sb.append("\t\tt.update_time,\n");
+        sb.append("\t\tt.is_delete,\n");
+        sb.append("\t\tt.version,\n");
+
         for (Column column : table.getColumnList()) {
             Element result = resultMap.addElement("result");
             result.addAttribute("property", column.getFieldName());
             result.addAttribute("column", column.getName());
-            sb.append(column.getName()).append(",\n");
+            sb.append("\t\tt.").append(column.getName()).append(",\n");
         }
 
-        Element allColumnSql = mapper.addElement("sql");
-        allColumnSql.addElement("id", "allColumnSql");
-        allColumnSql.setText(sb.toString());
-
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append("\n\n\t");
+        allColumnSql.addText(sb.toString());
         return document;
     }
 
@@ -67,16 +77,16 @@ public class XmlHelper {
         columnList.add(column3);
         table.setColumnList(columnList);
 
-        Document document = XmlHelper.buildMapperXml("com.hu4java.test", table);
+        Document document = XmlHelper.buildMapper("com.hu4java.test", table);
         System.out.println(document.asXML());
 
         OutputFormat format = new OutputFormat();
         format.setIndentSize(4);  // 行缩进
         format.setNewlines(true); // 一个结点为一行
-        format.setTrimText(true); // 去重空格
+        format.setTrimText(false); // 去重空格
         format.setPadText(true);
         format.setNewLineAfterDeclaration(true); // 放置xml文件中第二行为空白行
-        XMLWriter xmlWriter= new XMLWriter(new FileOutputStream(new File("/Users/john/mapper.xml")), format);
+        XMLWriter xmlWriter= new XMLWriter(new FileOutputStream(new File("d:/mapper.xml")), format);
         xmlWriter.write(document);
     }
 }

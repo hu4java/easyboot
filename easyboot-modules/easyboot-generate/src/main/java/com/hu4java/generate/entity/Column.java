@@ -1,5 +1,6 @@
 package com.hu4java.generate.entity;
 
+import com.hu4java.generate.helper.CodeHelper;
 import com.hu4java.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,5 +35,9 @@ public class Column {
 
         fieldName = StringUtils.underlineToCamel(name, false);
         return fieldName;
+    }
+
+    public String getJavaType() {
+        return CodeHelper.javaType(type);
     }
 }

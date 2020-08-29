@@ -5,22 +5,23 @@
         <result column="table_name" property="name"/>
         <result column="table_comment" property="comment"/>
         <result column="table_schema" property="schema"/>
-
-        <collection property="columnList" ofType="column" column="table_name"
-                    select="com.hu4java.generate.mapper.ColumnMapper.selectByTableName" />
+        <result column="table_collation" property="collation"/>
+        <result column="create_time" property="createTime"/>
 
     </resultMap>
 
     <sql id="allColumnSql">
         t.table_name,
         t.table_comment,
-        t.table_schema
+        t.table_collation,
+        t.create_time
     </sql>
 
     <sql id="searchSql">
         <where>
+            t.table_schema = database()
             <if test="condition.name != null and condition.name != ''">
-                AND t.name LIKE CONCAT('%', #{condition.name}, '%')
+                AND t.table_name LIKE CONCAT('%', #{condition.name}, '%')
             </if>
         </where>
     </sql>
@@ -31,10 +32,11 @@
         where t.table_schema = database() and t.table_name = #{tableName}
     </select>
 
-    <select id="selectByCondition" resultMap="tableMap">
+    <select id="selectByPage" resultMap="tableMap">
         select <include refid="allColumnSql"/>
         from information_schema.TABLES t
         <include refid="searchSql"/>
+        ORDER BY t.CREATE_TIME
     </select>
 
 </mapper>

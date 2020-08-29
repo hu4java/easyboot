@@ -27,8 +27,7 @@ public class ShiroRedisSessionManager extends DefaultWebSessionManager {
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
         String token = WebUtils.toHttp(request).getHeader(TOKEN_HEADER);
         if (StringUtils.isBlank(token)) {
-//            return super.getSessionId(request, response);
-            return null;
+            return super.getSessionId(request, response);
         }
         request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);
         request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, token);

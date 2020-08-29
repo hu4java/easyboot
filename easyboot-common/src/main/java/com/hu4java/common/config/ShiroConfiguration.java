@@ -15,7 +15,6 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -57,16 +56,16 @@ public class ShiroConfiguration {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager,
                                                          ShiroFilterChainDefinition shiroFilterChainDefinition) {
         ShiroFilterFactoryBean filterFactoryBean = new ShiroFilterFactoryBean();
-
+        filterFactoryBean.setSecurityManager(securityManager);
         filterFactoryBean.setLoginUrl("/needLogin");
         filterFactoryBean.setUnauthorizedUrl("/unauthorized");
 
         filterFactoryBean.getFilters().put("authc", new MyFormAuthenticationFilter());
 
-        filterFactoryBean.setSecurityManager(securityManager);
+
         Map<String, String> filterChainMap = new LinkedHashMap<>();
-        filterChainMap.put("/needLogin", "noSessionCreation,anon");
-        filterChainMap.put("/unauthorized", "noSessionCreation,anon");
+//        filterChainMap.put("/needLogin", "anon");
+//        filterChainMap.put("/unauthorized", "anon");
         filterChainMap.putAll(shiroFilterChainDefinition.getFilterChainMap());
 
         filterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
@@ -93,10 +92,11 @@ public class ShiroConfiguration {
 
     @Bean
     public DefaultWebSecurityManager securityManager(Realm realm, CacheManager cacheManager,
-                                                     DefaultWebSessionManager sessionManager) {
+                                                     ShiroRedisSessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(realm);
         securityManager.setCacheManager(cacheManager);
         securityManager.setSessionManager(sessionManager);
+
         return securityManager;
     }
 

@@ -31,9 +31,8 @@ public class ShiroConfig extends ShiroConfiguration {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
 
         chainDefinition.addPathDefinition("/login", "anon");
-        chainDefinition.addPathDefinition("/test", "anon");
+        chainDefinition.addPathDefinition("/logout", "anon");
         chainDefinition.addPathDefinition("/**", "authc");
-
 
         return chainDefinition;
     }

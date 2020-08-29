@@ -4,6 +4,7 @@ import com.hu4java.common.result.Result;
 import com.hu4java.common.result.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.AuthorizationException;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -23,10 +24,16 @@ public class RestExceptionHandler {
         return Result.error(ResultCode.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Result<Void> methodArgumentNotValidException(MethodArgumentNotValidException e) {
+    @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class})
+    public Result<Void> methodArgumentNotValidException(Exception e) {
         log.error("参数校验错误：{}", e.getMessage(), e);
-        String message = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+        String message;
+        if (e instanceof BindException) {
+            message = ((BindException) e).getBindingResult().getFieldErrors().get(0).getDefaultMessage();
+        } else {
+            message = ((MethodArgumentNotValidException) e).getBindingResult().getAllErrors().get(0).getDefaultMessage();
+        }
+
         return Result.error(ResultCode.PARAMETER_INVALID.getCode(), message);
     }
 
