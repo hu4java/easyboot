@@ -7,9 +7,9 @@ package com.hu4java.common.constant;
 public interface RedisConstant {
 
     /** Shiro Session Key 前缀*/
-    String SHIRO_SESSION_KEY_PREFIX = "huboot:shiro:session:";
+    String SHIRO_SESSION_KEY_PREFIX = "easyboot:shiro:session:";
 
     /** Shiro 权限 Key 前缀*/
-    String SHIRO_AUTHORITY_KEY_PREFIX = "huboot:shiro:authority:";
+    String SHIRO_AUTHORITY_KEY_PREFIX = "easyboot:shiro:authority:";
 
 }

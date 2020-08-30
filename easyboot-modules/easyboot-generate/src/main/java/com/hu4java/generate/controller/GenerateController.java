@@ -22,6 +22,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
+ * 代码生成
  * @author hu4java
  */
 @Slf4j
@@ -29,8 +30,16 @@ import java.util.zip.ZipOutputStream;
 @RequestMapping("/generate")
 public class GenerateController {
 
+    /**
+     * 生成代码
+     * @param request       数据
+     * @param response
+     * @throws Exception
+     */
     @PostMapping("/code")
     public void generate(@RequestBody @Validated GenerateRequest request, HttpServletResponse response) throws Exception {
+
+        // 构建相关代码
         String entity = CodeHelper.buildEntity(request.getJavaPackage(), request);
         String mapper = CodeHelper.buildMapper(request.getJavaPackage(), request);
         String service = CodeHelper.buildService(request.getJavaPackage(), request);
@@ -38,7 +47,7 @@ public class GenerateController {
         String controller = CodeHelper.buildController(request.getJavaPackage(), request);
         Document document = XmlHelper.buildMapper(request.getJavaPackage(), request);
 
-
+        // 构造代码文件路径
         String path = request.getJavaPackage().replaceAll("\\.", "/");
         String javaPath = "src/main/java/" + path;
         String entityJavaPath = javaPath + "/entity/" + request.getEntityName() + ".java";
@@ -49,6 +58,7 @@ public class GenerateController {
 
         String xmlPath = "src/main/resources/mapper/" + request.getModule() + "/" + request.getEntityName() + "Mapper.xml";
 
+        // 生成zip
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ZipOutputStream zipOutputStream = new ZipOutputStream(os);
 
@@ -58,6 +68,7 @@ public class GenerateController {
         putFile(zipOutputStream, serviceImpl, serviceImplJavaPath);
         putFile(zipOutputStream, controller, controllerJavaPath);
 
+        // xml 格式化
         ByteArrayOutputStream xmlOutputStream = new ByteArrayOutputStream();
         OutputFormat format = new OutputFormat();
         format.setIndentSize(4);  // 行缩进
@@ -71,7 +82,8 @@ public class GenerateController {
         putFile(zipOutputStream, IOUtils.toString(xmlOutputStream.toByteArray(), StandardCharsets.UTF_8.name()), xmlPath);
         xmlOutputStream.flush();
         xmlOutputStream.close();
-        
+
+        // 响应前端下载
         byte[] bytes = os.toByteArray();
         response.reset();
         response.setHeader("Content-Disposition", "attachment; filename=\""+ request.getModule() +".zip\"");
@@ -84,6 +96,13 @@ public class GenerateController {
         os.close();
     }
 
+    /**
+     * zip 文件
+     * @param zipOutputStream   压缩输出流
+     * @param source            代码
+     * @param path              源码文件路径
+     * @throws IOException      异常
+     */
     private void putFile(ZipOutputStream zipOutputStream, String source, String path) throws IOException {
         ZipEntry zipEntry = new ZipEntry(path);
         zipOutputStream.putNextEntry(zipEntry);
