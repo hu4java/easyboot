@@ -22,7 +22,7 @@ public class GenerateFieldRequest extends BaseRequest {
     private String fieldName;
     /** 数据类型*/
     @NotBlank(message = "数据类型不能为空")
-    private String dateType;
+    private String dataType;
     /** Java类型*/
     @NotBlank(message = "Java类型不能为空")
     private String javaType;

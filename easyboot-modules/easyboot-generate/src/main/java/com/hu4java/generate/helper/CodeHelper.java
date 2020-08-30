@@ -3,10 +3,12 @@ package com.hu4java.generate.helper;
 import com.hu4java.common.constant.DateConstants;
 import com.hu4java.generate.request.GenerateFieldRequest;
 import com.hu4java.generate.request.GenerateRequest;
+import com.hu4java.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author chenzhenhu
@@ -20,6 +22,7 @@ public class CodeHelper {
 
         // import
         sb.append("import com.baomidou.mybatisplus.annotation.TableName;\n");
+        sb.append("import com.baomidou.mybatisplus.annotation.TableField;\n");
         sb.append("import com.hu4java.base.entity.BaseEntity;\n");
         sb.append("import lombok.Getter;\n");
         sb.append("import lombok.Setter;\n\n");
@@ -37,10 +40,14 @@ public class CodeHelper {
 
         // 字段
         List<GenerateFieldRequest> fieldList = request.removeCommonField();
-        for (GenerateFieldRequest fieldRequest : fieldList) {
-            String javaType = javaType(fieldRequest.getJavaType());
-            sb.append("\t/** ").append(fieldRequest.getColumnComment()).append("*/\n");
-            sb.append("\tprivate ").append(javaType).append(" ").append(fieldRequest.getFieldName()).append(";\n\n");
+        for (GenerateFieldRequest field : fieldList) {
+            sb.append("\t/** ").append(field.getColumnComment()).append("*/\n");
+            // 字段名和列名是否相同
+            String originalField = StringUtils.underlineToCamel(field.getColumnName(), false);
+            if (!Objects.equals(originalField, field.getFieldName())) {
+                sb.append("\t@TableField(value = \"").append(field.getColumnName()).append("\")\n");
+            }
+            sb.append("\tprivate ").append(field.getJavaType()).append(" ").append(field.getFieldName()).append(";\n\n");
         }
 
         sb.append("}");
