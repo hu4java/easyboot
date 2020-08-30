@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hu4java.generate.mapper.ColumnMapper">
     <resultMap type="com.hu4java.generate.entity.Column" id="columnMap">
-        <result column="column_name" property="name"/>
-        <result column="column_comment" property="comment"/>
+        <result column="column_name" property="columnName"/>
+        <result column="column_comment" property="columnComment"/>
         <result column="table_name" property="tableName"/>
-        <result column="data_type" property="type"/>
+        <result column="data_type" property="dataType"/>
     </resultMap>
 
     <sql id="allColumnSql">

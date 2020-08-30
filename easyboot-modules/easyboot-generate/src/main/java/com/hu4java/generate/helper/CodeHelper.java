@@ -1,15 +1,11 @@
 package com.hu4java.generate.helper;
 
 import com.hu4java.common.constant.DateConstants;
-import com.hu4java.generate.entity.Column;
-import com.hu4java.generate.entity.Table;
-import org.apache.commons.io.IOUtils;
+import com.hu4java.generate.request.GenerateFieldRequest;
+import com.hu4java.generate.request.GenerateRequest;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,10 +13,10 @@ import java.util.List;
  */
 public class CodeHelper {
 
-    public static String buildEntity(String prefixPackage, Table table) {
+    public static String buildEntity(String prefixPackage, GenerateRequest request) {
         StringBuilder sb = new StringBuilder();
         // package
-        sb.append("package " + prefixPackage + ".entity;\n\n");
+        sb.append("package ").append(prefixPackage).append(".entity;\n\n");
 
         // import
         sb.append("import com.baomidou.mybatisplus.annotation.TableName;\n");
@@ -30,90 +26,91 @@ public class CodeHelper {
         sb.append("import java.time.*;\n\n");
 
         // 类注释部分
-        sb.append(buildClassComment(table.getComment()));
+        sb.append(buildClassComment(request.getComment(), request.getAuthor()));
 
         // 类主体
         sb.append("@Getter\n");
         sb.append("@Setter\n");
-        sb.append("@TableName(\"").append(table.getName()).append("\")\n");
-        sb.append("public class ").append(table.entityName()).append(" extends BaseEntity {\n");
+        sb.append("@TableName(\"").append(request.getTableName()).append("\")\n");
+        sb.append("public class ").append(request.getEntityName()).append(" extends BaseEntity {\n");
         sb.append("\tprivate static final long serialVersionUID = -1L;\n\n");
 
         // 字段
-        for (Column column : table.getColumnList()) {
-            String javaType = javaType(column.getType());
-            sb.append("\t/** ").append(column.getComment()).append(" */\n");
-            sb.append("\tprivate ").append(javaType).append(" ").append(column.getFieldName()).append(";\n\n");
+        List<GenerateFieldRequest> fieldList = request.removeCommonField();
+        for (GenerateFieldRequest fieldRequest : fieldList) {
+            String javaType = javaType(fieldRequest.getJavaType());
+            sb.append("\t/** ").append(fieldRequest.getColumnComment()).append("*/\n");
+            sb.append("\tprivate ").append(javaType).append(" ").append(fieldRequest.getFieldName()).append(";\n\n");
         }
 
         sb.append("}");
         return sb.toString();
     }
 
-    public static String buildMapper(String prefixPackage, Table table) {
+    public static String buildMapper(String prefixPackage, GenerateRequest request) {
         StringBuilder sb = new StringBuilder();
         // package
         sb.append("package ").append(prefixPackage).append(".mapper;\n\n");
 
         // import
         sb.append("import com.hu4java.base.mapper.BaseMapper;\n");
-        sb.append("import ").append(prefixPackage).append(".entity.").append(table.entityName()).append(";\n");
+        sb.append("import ").append(prefixPackage).append(".entity.").append(request.getEntityName()).append(";\n");
         sb.append("import org.springframework.stereotype.Repository;\n\n");
 
         // 注释
-        sb.append(buildClassComment(table.getComment()));
+        sb.append(buildClassComment(request.getComment(), request.getAuthor()));
         sb.append("@Repository\n");
-        sb.append("public interface ").append(table.mapperName()).append(" extends BaseMapper<")
-                .append(table.entityName()).append("> {\n\n}");
+        sb.append("public interface ").append(request.getEntityName()).append("Mapper extends BaseMapper<")
+                .append(request.getEntityName()).append("> {\n\n}");
         return sb.toString();
     }
 
-    public static String buildService(String prefixPackage, Table table) {
+    public static String buildService(String prefixPackage, GenerateRequest request) {
         StringBuilder sb = new StringBuilder();
         // package
         sb.append("package ").append(prefixPackage).append(".service;\n\n");
 
         // import
-        sb.append("import com.hu4java.base.service.BaseService;\n");
-        sb.append("import ").append(prefixPackage).append(".entity.").append(table.entityName()).append(";\n");
+        sb.append("import com.hu4java.base.service.Service;\n");
+        sb.append("import ").append(prefixPackage).append(".entity.").append(request.getEntityName()).append(";\n");
 
         // 注释
-        sb.append(buildClassComment(table.getComment()));
-        sb.append("public interface ").append(table.serviceName()).append(" extends BaseService<")
-                .append(table.entityName()).append("> {\n\n}");
+        sb.append(buildClassComment(request.getComment(), request.getAuthor()));
+        sb.append("public interface ").append(request.getEntityName()).append("Service extends Service<")
+                .append(request.getEntityName()).append("> {\n\n}");
 
         return sb.toString();
     }
 
-    public static String buildServiceImpl(String prefixPackage, Table table) {
+    public static String buildServiceImpl(String prefixPackage, GenerateRequest request) {
         StringBuilder sb = new StringBuilder();
         // package
         sb.append("package ").append(prefixPackage).append(".service.impl;\n\n");
 
         // import
         sb.append("import com.hu4java.base.service.impl.AbstractServiceImpl;\n");
-        sb.append("import ").append(prefixPackage).append(".service.").append(table.serviceName()).append(";\n");
-        sb.append("import ").append(prefixPackage).append(".entity.").append(table.entityName()).append(";\n");
-        sb.append("import ").append(prefixPackage).append(".mapper.").append(table.mapperName()).append(";\n");
+        sb.append("import ").append(prefixPackage).append(".service.").append(request.getEntityName()).append("Service;\n");
+        sb.append("import ").append(prefixPackage).append(".entity.").append(request.getEntityName()).append(";\n");
+        sb.append("import ").append(prefixPackage).append(".mapper.").append(request.getEntityName()).append("Mapper;\n");
         sb.append("import org.springframework.stereotype.Service;\n\n");
 
         // 注释
-        sb.append(buildClassComment(table.getComment()));
+        sb.append(buildClassComment(request.getComment(), request.getAuthor()));
         sb.append("@Service\n");
-        sb.append("public class ").append(table.serviceImplName()).append(" extends AbstractServiceImpl<")
-                .append(table.entityName()).append(", ")
-                .append(table.mapperName()).append("> implements ")
-                .append(table.serviceName()).append(" {\n\n}");
+        sb.append("public class ").append(request.getEntityName()).append("ServiceImpl extends AbstractServiceImpl<")
+                .append(request.getEntityName()).append(", ")
+                .append(request.getEntityName()).append("Mapper> implements ")
+                .append(request.getEntityName()).append("Service {\n\n}");
         return sb.toString();
     }
 
-    public static String buildController(String prefixPackage, Table table) {
+    public static String buildController(String prefixPackage, GenerateRequest request) {
         StringBuilder sb = new StringBuilder();
         // package
         sb.append("package ").append(prefixPackage).append(".controller;\n\n");
 
         // import
-        sb.append("import ").append(prefixPackage).append(".service.").append(table.serviceName()).append(";\n");
+        sb.append("import ").append(prefixPackage).append(".service.").append(request.getEntityName()).append("Service;\n");
         sb.append("import com.hu4java.common.result.Result;\n");
         sb.append("import org.springframework.beans.factory.annotation.Autowired;\n");
         sb.append("import org.springframework.web.bind.annotation.GetMapping;\n");
@@ -121,10 +118,11 @@ public class CodeHelper {
         sb.append("import org.springframework.web.bind.annotation.RestController;\n");
 
         // 注释
-        sb.append(buildClassComment(table.getComment()));
+        sb.append(buildClassComment(request.getComment(), request.getAuthor()));
         sb.append("@RestController\n");
-        sb.append("@RequestMapping(\"/").append(table.getName()).append("\")\n");
-        sb.append("public class ").append(table.controllerName()).append(" {\n\n}");
+        sb.append("@RequestMapping(\"/").append(request.getModule()).append("/")
+                .append(request.getEntityName()).append("\")\n");
+        sb.append("public class ").append(request.getEntityName()).append("Controller {\n\n}");
         return sb.toString();
     }
 
@@ -133,12 +131,12 @@ public class CodeHelper {
      * @param comment   注释
      * @return
      */
-    public static String buildClassComment(String comment) {
+    public static String buildClassComment(String comment, String author) {
         String createTime = DateTimeFormatter.ofPattern(DateConstants.DEFAULT_DATE_TIME_FORMAT).format(LocalDateTime.now());
         StringBuilder sb = new StringBuilder();
         sb.append("/**\n");
         sb.append(" * ").append(comment).append("\n");
-        sb.append(" * @author\tEasyBoot\n");
+        sb.append(" * @author\t").append(author).append("\n");
         sb.append(" * @date\t").append(createTime).append("\n");
         sb.append(" */\n");
         return sb.toString();
@@ -163,45 +161,22 @@ public class CodeHelper {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        Table table = new Table();
-        table.setComment("表");
-        table.setName("sys_table");
-        table.setRemovePrefix(true);
-        List<Column> columnList = new ArrayList<>();
-        Column column = new Column();
-        column.setComment("列");
-        column.setName("id");
-        column.setType("bigint");
-        columnList.add(column);
-        Column column2 = new Column();
-        column2.setComment("创建人");
-        column2.setName("create_by");
-        column2.setType("varchar");
-        columnList.add(column2);
-        Column column3 = new Column();
-        column3.setComment("删除");
-        column3.setName("delete");
-        column3.setType("tinyint");
-        columnList.add(column3);
-        table.setColumnList(columnList);
+    public static String instanceName(String name) {
+        if (null == name || "".equals(name.trim())) {
+            return null;
+        }
+        char[] chars = name.toCharArray();
 
-        String entity = CodeHelper.buildEntity("com.hu4java.test", table);
-        System.out.println(entity);
+        StringBuilder sb = new StringBuilder(chars.length);
 
-        String mapper = CodeHelper.buildMapper("com.hu4java.test", table);
-        System.out.println(mapper);
-
-        String service = CodeHelper.buildService("com.hu4java.test", table);
-        System.out.println(service);
-
-        String serviceImpl = CodeHelper.buildServiceImpl("com.hu4java.test", table);
-        System.out.println(serviceImpl);
-
-        String controller = CodeHelper.buildController("com.hu4java.test", table);
-        System.out.println(controller);
-
-        IOUtils.write(entity.getBytes("UTF-8"), new FileOutputStream(new File("d:/entity.java")));
-
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            if (i == 0) {
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 }

@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hu4java.generate.mapper.TableMapper">
     <resultMap type="com.hu4java.generate.entity.Table" id="tableMap">
-        <result column="table_name" property="name"/>
-        <result column="table_comment" property="comment"/>
-        <result column="table_schema" property="schema"/>
-        <result column="table_collation" property="collation"/>
+        <result column="table_name" property="tableName"/>
+        <result column="table_comment" property="tableComment"/>
+        <result column="table_schema" property="tableSchema"/>
+        <result column="table_collation" property="tableCollation"/>
         <result column="create_time" property="createTime"/>
 
     </resultMap>
@@ -14,7 +14,8 @@
         t.table_name,
         t.table_comment,
         t.table_collation,
-        t.create_time
+        t.create_time,
+        t.table_schema
     </sql>
 
     <sql id="searchSql">

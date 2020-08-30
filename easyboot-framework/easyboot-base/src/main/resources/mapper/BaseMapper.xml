@@ -7,7 +7,7 @@
         <result column="create_time" property="createTime" />
         <result column="update_by" property="updateBy" />
         <result column="update_time" property="updateTime" />
-        <result column="is_delete" property="deleteFlag" />
+        <result column="is_delete" property="isDelete" />
         <result column="version" property="version" />
     </resultMap>
 

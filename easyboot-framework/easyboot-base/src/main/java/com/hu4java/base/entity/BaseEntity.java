@@ -19,11 +19,12 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = -5051379387422169714L;
 
+    public static final String ID_FIELD = "id";
     public static final String CREATE_BY_FIELD = "createBy";
     public static final String CREATE_TIME_FIELD = "createTime";
     public static final String UPDATE_BY_FIELD = "updateBy";
     public static final String UPDATE_TIME_FIELD = "updateTime";
-    public static final String DELETE_FIELD = "deleteFlag";
+    public static final String DELETE_FIELD = "isDelete";
     public static final String VERSION_FIELD = "version";
 
     @TableId(type = IdType.AUTO)
@@ -39,7 +40,7 @@ public abstract class BaseEntity implements Serializable {
     private LocalDateTime updateTime;
 
     @TableField(value = "is_delete")
-    private Boolean deleteFlag;
+    private Boolean isDelete;
 
     private Integer version;
 }
