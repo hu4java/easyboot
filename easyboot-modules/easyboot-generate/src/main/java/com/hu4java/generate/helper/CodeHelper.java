@@ -111,16 +111,60 @@ public class CodeHelper {
         return sb.toString();
     }
 
+    public static String buildCondition(String prefixPackage, GenerateRequest request) {
+        StringBuilder sb = new StringBuilder();
+        // package
+        sb.append("package ").append(prefixPackage).append(".condition;\n\n");
+
+        // import
+        sb.append("import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;\n");
+        sb.append("import com.hu4java.base.condition.Condition;\n");
+        sb.append("import ").append(prefixPackage).append(".entity.").append(request.getEntityName()).append(";\n");
+        sb.append("import lombok.Getter;\n");
+        sb.append("import lombok.Setter;\n\n");
+        sb.append("import java.time.*;\n\n");
+
+        // 类注释部分
+        sb.append(buildClassComment(request.getComment(), request.getAuthor()));
+
+        // 类主体
+        sb.append("@Getter\n");
+        sb.append("@Setter\n");
+        sb.append("public class ").append(request.getEntityName()).append("Condition extends Condition {\n");
+        sb.append("\tprivate static final long serialVersionUID = -1L;\n\n");
+
+        // 字段
+        List<GenerateFieldRequest> fieldList = request.removeCommonField();
+        for (GenerateFieldRequest field : fieldList) {
+            sb.append("\t/** ").append(field.getColumnComment()).append("*/\n");
+            sb.append("\tprivate ").append(field.getJavaType()).append(" ").append(field.getFieldName()).append(";\n\n");
+        }
+
+        sb.append("\t@Override\n");
+        sb.append("\tpublic LambdaQueryWrapper<").append(request.getEntityName()).append("> queryWrapper() {\n");
+        sb.append("\t\treturn null;\n");
+        sb.append("\t}\n\n");
+
+        sb.append("}");
+        return sb.toString();
+    }
+
     public static String buildController(String prefixPackage, GenerateRequest request) {
+        String serviceInstanceName = instanceName(request.getEntityName()) + "Service";
+        String conditionName = request.getEntityName() + "Condition";
         StringBuilder sb = new StringBuilder();
         // package
         sb.append("package ").append(prefixPackage).append(".controller;\n\n");
 
         // import
+        sb.append("import import com.baomidou.mybatisplus.extension.plugins.pagination.Page;\n");
         sb.append("import ").append(prefixPackage).append(".service.").append(request.getEntityName()).append("Service;\n");
+        sb.append("import ").append(prefixPackage).append(".entity.").append(request.getEntityName()).append(";\n");
+        sb.append("import ").append(prefixPackage).append(".condition.").append(conditionName).append(";\n");
         sb.append("import com.hu4java.common.result.Result;\n");
         sb.append("import org.springframework.beans.factory.annotation.Autowired;\n");
         sb.append("import org.springframework.web.bind.annotation.GetMapping;\n");
+        sb.append("import org.springframework.web.bind.annotation.PostMapping;\n");
         sb.append("import org.springframework.web.bind.annotation.RequestMapping;\n");
         sb.append("import org.springframework.web.bind.annotation.RestController;\n");
 
@@ -129,7 +173,16 @@ public class CodeHelper {
         sb.append("@RestController\n");
         sb.append("@RequestMapping(\"/").append(request.getModule()).append("/")
                 .append(request.getEntityName()).append("\")\n");
-        sb.append("public class ").append(request.getEntityName()).append("Controller {\n\n}");
+        sb.append("public class ").append(request.getEntityName()).append("Controller {\n\n");
+        sb.append("\t@Autowired\n");
+        sb.append("\tprivate ").append(request.getEntityName()).append("Service ").append(serviceInstanceName).append(";\n\n");
+        sb.append("\t@GetMapping(\"/list\")\n");
+        sb.append("\tpublic Result<Page<").append(request.getEntityName()).append(">> list(Page<")
+                .append(request.getEntityName()).append("> page, ").append(conditionName).append(" condition) {\n");
+        sb.append("\t\tpage = ").append(serviceInstanceName).append(".listByPage(page, condition);\n");
+        sb.append("\t\treturn Result.success(page);\n");
+        sb.append("\t}\n");
+        sb.append("\n}");
         return sb.toString();
     }
 

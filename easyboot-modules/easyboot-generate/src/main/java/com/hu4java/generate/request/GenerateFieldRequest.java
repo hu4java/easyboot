@@ -3,6 +3,7 @@ package com.hu4java.generate.request;
 import com.hu4java.base.request.BaseRequest;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotBlank;
  */
 @Getter
 @Setter
+@Validated
 public class GenerateFieldRequest extends BaseRequest {
     private static final long serialVersionUID = -3752721360126578947L;
 

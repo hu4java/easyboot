@@ -52,40 +52,4 @@ public class XmlHelper {
         allColumnSql.addText(sb.toString());
         return document;
     }
-
-//    public static void main(String[] args) throws Exception {
-//        Table table = new Table();
-//        table.setComment("表");
-//        table.setName("sys_table");
-//        table.setRemovePrefix(true);
-//        List<Column> columnList = new ArrayList<>();
-//        Column column = new Column();
-//        column.setComment("列");
-//        column.setName("id");
-//        column.setType("bigint");
-//        columnList.add(column);
-//        Column column2 = new Column();
-//        column2.setComment("创建人");
-//        column2.setName("create_by");
-//        column2.setType("varchar");
-//        columnList.add(column2);
-//        Column column3 = new Column();
-//        column3.setComment("删除");
-//        column3.setName("delete");
-//        column3.setType("tinyint");
-//        columnList.add(column3);
-//        table.setColumnList(columnList);
-//
-//        Document document = XmlHelper.buildMapper("com.hu4java.test", table);
-//        System.out.println(document.asXML());
-//
-//        OutputFormat format = new OutputFormat();
-//        format.setIndentSize(4);  // 行缩进
-//        format.setNewlines(true); // 一个结点为一行
-//        format.setTrimText(false); // 去重空格
-//        format.setPadText(true);
-//        format.setNewLineAfterDeclaration(true); // 放置xml文件中第二行为空白行
-//        XMLWriter xmlWriter= new XMLWriter(new FileOutputStream(new File("d:/mapper.xml")), format);
-//        xmlWriter.write(document);
-//    }
 }
