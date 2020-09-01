@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hu4java.user.mapper.DeptMapper">
+<mapper namespace="com.hu4java.system.mapper.DeptMapper">
     <resultMap type="dept" id="deptMap" extends="BaseEntity.entity">
 
         <collection property="children" ofType="dept" column="id" select="selectByPid" />
@@ -35,7 +35,7 @@
 
     <select id="selectByPid" resultMap="deptMap">
         select <include refid="allColumnSql"/>
-        from sys_dept
+        from sys_dept t
         where t.pid = #{pid}
     </select>
 

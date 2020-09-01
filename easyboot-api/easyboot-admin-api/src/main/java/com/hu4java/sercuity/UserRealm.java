@@ -2,10 +2,10 @@ package com.hu4java.sercuity;
 
 import com.hu4java.base.enums.Status;
 import com.hu4java.common.result.ResultCode;
-import com.hu4java.user.entity.Menu;
-import com.hu4java.user.entity.Role;
-import com.hu4java.user.entity.User;
-import com.hu4java.user.service.UserService;
+import com.hu4java.system.entity.Menu;
+import com.hu4java.system.entity.Role;
+import com.hu4java.system.entity.User;
+import com.hu4java.system.service.UserService;
 import com.hu4java.util.ShiroUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;

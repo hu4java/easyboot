@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hu4java.user.mapper.MenuMapper">
+<mapper namespace="com.hu4java.system.mapper.MenuMapper">
     <resultMap type="menu" id="menuMap" extends="BaseEntity.entity">
 
-        <collection property="children" ofType="menu" column="id" select="selectByPid" />
+        <collection property="children" ofType="menu" column="id" select="selectTreeByPid" />
 
     </resultMap>
 
@@ -24,7 +24,9 @@
         t.icon,
         t.component,
         t.hidden,
-        t.status
+        t.status,
+        t.hide_children_in_menu,
+        t.order_num
     </sql>
 
     <sql id="searchSql">
@@ -39,11 +41,11 @@
         </where>
     </sql>
 
-    <select id="selectByPid" resultMap="menuMap">
+    <select id="selectTreeByPid" resultMap="menuMap">
         select
         <include refid="allColumnSql"/>
-        from sys_menu
-        where t.pid = #{pid}
+        from sys_menu t
+        where t.pid = #{pid} order by t.order_num
     </select>
 
     <select id="selectByUserId" resultMap="menuMap">
