@@ -4,11 +4,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.common.result.Result;
 import com.hu4java.system.entity.Role;
 import com.hu4java.system.request.RoleListRequest;
+import com.hu4java.system.request.RoleRequest;
+import com.hu4java.system.request.RoleUpdateRequest;
 import com.hu4java.system.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 系统管理-角色
@@ -31,5 +32,15 @@ public class RoleController {
     public Result<Page<Role>> list(RoleListRequest request) {
         Page<Role> page = roleService.listByPage(request.toPage(), request.queryWrapper());
         return Result.success(page);
+    }
+
+    @PostMapping("/save")
+    public Result<Void> save(@RequestBody @Validated RoleRequest request) {
+        return Result.success();
+    }
+
+    @PostMapping("/update")
+    public Result<Void> update(@RequestBody @Validated RoleUpdateRequest request) {
+        return Result.success();
     }
 }
