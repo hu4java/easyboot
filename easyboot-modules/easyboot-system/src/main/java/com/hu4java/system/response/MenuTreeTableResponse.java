@@ -3,6 +3,7 @@ package com.hu4java.system.response;
 import com.hu4java.base.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -30,8 +31,17 @@ public class MenuTreeTableResponse extends BaseResponse {
     private Integer type;
     /** 状态： 0-正常 1-禁用*/
     private Integer status;
+    /** 是否隐藏*/
+    private boolean hidden;
     /** 排序*/
     private Integer orderNum;
     /** 子菜单*/
     private List<MenuTreeTableResponse> children;
+
+    public List<MenuTreeTableResponse> getChildren() {
+        if (CollectionUtils.isEmpty(children)) {
+            return null;
+        }
+        return children;
+    }
 }

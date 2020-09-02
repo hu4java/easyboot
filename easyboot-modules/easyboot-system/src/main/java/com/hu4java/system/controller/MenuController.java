@@ -83,7 +83,7 @@ public class MenuController {
      * @return
      */
     @PostMapping("/remove")
-    public Result<Void> remove(@Validated RemoveRequest request) {
+    public Result<Void> remove(@RequestBody @Validated RemoveRequest request) {
         menuService.removeById(request.getId());
         return Result.success();
     }

@@ -37,7 +37,7 @@ public class Menu extends BaseEntity {
     /** 是否隐藏*/
     private Boolean hidden;
     /** 路由名*/
-    private String routeName;
+    private String routerName;
     /** 组件*/
     private String component;
     /** 隐藏菜单*/

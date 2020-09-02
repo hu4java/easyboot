@@ -37,10 +37,10 @@ public class MenuRequest extends BaseRequest {
     @NotNull(message = "是否隐藏不能为空")
     private Boolean hidden;
     /** 路由名*/
-    @NotBlank(message = "路由名不能为空")
-    private String routeName;
+//    @NotBlank(message = "路由名不能为空")
+    private String routerName;
     /** 组件*/
-    @NotBlank(message = "组件不能为空")
+//    @NotBlank(message = "组件不能为空")
     private String component;
     /** 隐藏菜单*/
     private boolean hideChildrenInMenu;

@@ -19,7 +19,7 @@
         t.code,
         t.path,
         t.pid,
-        t.route_name,
+        t.router_name,
         t.type,
         t.icon,
         t.component,
