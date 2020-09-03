@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -19,16 +20,15 @@ public class RoleRequest extends BaseRequest {
     private static final long serialVersionUID = 3048189774432038555L;
 
     /** 角色名称*/
-    @NotBlank(message = "不能为空")
+    @NotBlank(message = "角色名称不能为空")
     private String name;
     /** 角色代码*/
-    @NotBlank(message = "不能为空")
+    @NotBlank(message = "角色代码不能为空")
     private String code;
     /** 状态： 0-正常 1-禁用*/
-    @NotBlank(message = "不能为空")
+    @NotNull(message = "状态不能为空")
     private Integer status;
     /** 备注*/
-    @NotBlank(message = "不能为空")
     @Length(max = 50, message = "备注最多50个字符")
     private String remark;
 

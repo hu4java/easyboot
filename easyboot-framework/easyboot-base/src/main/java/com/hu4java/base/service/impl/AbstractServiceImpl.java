@@ -79,11 +79,11 @@ public abstract class AbstractServiceImpl<T, M extends BaseMapper<T>> implements
     }
 
     protected Class<T> currentEntityClass() {
-        return (Class<T>) ReflectionKit.getSuperClassGenericType(getClass(), 1);
+        return (Class<T>) ReflectionKit.getSuperClassGenericType(getClass(), 0);
     }
 
     protected Class<T> currentMapperClass() {
-        return (Class<T>) ReflectionKit.getSuperClassGenericType(getClass(), 0);
+        return (Class<T>) ReflectionKit.getSuperClassGenericType(getClass(), 1);
     }
 
     protected boolean returnBool(int count) {

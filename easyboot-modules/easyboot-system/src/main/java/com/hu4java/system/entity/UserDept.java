@@ -1,5 +1,6 @@
 package com.hu4java.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.hu4java.base.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@TableName("sys_role_dept")
 public class UserDept extends BaseEntity {
     private static final long serialVersionUID = -165163747105455582L;
 

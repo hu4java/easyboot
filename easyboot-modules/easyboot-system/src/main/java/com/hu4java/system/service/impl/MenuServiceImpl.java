@@ -17,7 +17,7 @@ public class MenuServiceImpl extends AbstractServiceImpl<Menu, MenuMapper> imple
 
     @Override
     public boolean save(Menu entity) {
-        if (Objects.equals(entity.getPid(), 0)) {
+        if (Objects.equals(entity.getPid(), 0L)) {
             entity.setPids("0");
         } else {
             Menu parent = mapper.selectById(entity.getPid());
