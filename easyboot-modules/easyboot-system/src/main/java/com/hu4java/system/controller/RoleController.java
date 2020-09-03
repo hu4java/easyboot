@@ -51,6 +51,9 @@ public class RoleController {
     @GetMapping("/detail")
     public Result<RoleUpdateResponse> detail(@Validated ViewRequest request) {
         Role role = roleService.getById(request.getId());
+        if (null == role) {
+            return Result.error("角色数据不存在");
+        }
         List<RoleMenu> roleMenuList = roleMenuService.listByRoleId(role.getId());
         List<Long> menuIds = roleMenuList.stream().map(RoleMenu::getMenuId).collect(Collectors.toList());
         RoleUpdateResponse response = mapperFacade.map(role, RoleUpdateResponse.class);

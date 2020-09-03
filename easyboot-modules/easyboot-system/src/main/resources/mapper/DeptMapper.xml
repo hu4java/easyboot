@@ -17,8 +17,12 @@
         t.version,
         t.name,
         t.code,
+        t.phone,
+        t.email,
         t.pid,
-        t.status
+        t.status,
+        t.order_num,
+        t.remark
     </sql>
 
     <sql id="searchSql">
@@ -44,6 +48,12 @@
         from sys_dept t
         left join sys_user_dept t2 on t.id = t2.dept_id
         where t2.user_id = #{userId}
+    </select>
+
+    <select id="selectByCondition" resultMap="deptMap">
+        select <include refid="allColumnSql"/>
+        from sys_dept t
+        <include refid="searchSql"/>
     </select>
 
 </mapper>

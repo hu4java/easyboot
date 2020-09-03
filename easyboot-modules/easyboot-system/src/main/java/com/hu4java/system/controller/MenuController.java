@@ -3,12 +3,15 @@ package com.hu4java.system.controller;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
 import com.hu4java.common.result.Result;
+import com.hu4java.system.condition.MenuCondition;
 import com.hu4java.system.entity.Menu;
+import com.hu4java.system.request.MenuListRequest;
 import com.hu4java.system.request.MenuSaveRequest;
 import com.hu4java.system.request.MenuUpdateRequest;
 import com.hu4java.system.response.MenuTreeTableResponse;
 import com.hu4java.system.service.MenuService;
 import ma.glasnost.orika.MapperFacade;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +37,14 @@ public class MenuController {
      * @return          菜单数据
      */
     @GetMapping("/list")
-    public Result<List<MenuTreeTableResponse>> list() {
-
-        List<Menu> menuList = menuService.listTreeByPid(0L);
+    public Result<List<MenuTreeTableResponse>> list(MenuListRequest request) {
+        List<Menu> menuList;
+        if (StringUtils.isNotBlank(request.getTitle())) {
+            MenuCondition condition = mapperFacade.map(request, MenuCondition.class);
+            menuList = menuService.listTreeByCondition(condition);
+        } else {
+            menuList = menuService.listTreeByPid(0L);
+        }
         List<MenuTreeTableResponse> list = mapperFacade.mapAsList(menuList, MenuTreeTableResponse.class);
         return Result.success(list);
     }
@@ -49,12 +57,15 @@ public class MenuController {
     @GetMapping("/getById")
     public Result<MenuUpdateRequest> getById(@Validated ViewRequest request) {
         Menu menu = menuService.getById(request.getId());
+        if (null == menu) {
+            return Result.error("菜单数据不存在");
+        }
         MenuUpdateRequest response = mapperFacade.map(menu, MenuUpdateRequest.class);
         return Result.success(response);
     }
 
     /**
-     * 菜单保存
+     * 保存菜单
      * @param request 保存数据
      * @return
      */
@@ -66,7 +77,7 @@ public class MenuController {
     }
 
     /**
-     * 菜单更新
+     * 更新菜单
      * @param request 更新数据
      * @return
      */
@@ -78,12 +89,16 @@ public class MenuController {
     }
 
     /**
-     * 删除
+     * 删除菜单
      * @param request   数据id
      * @return
      */
     @PostMapping("/remove")
     public Result<Void> remove(@RequestBody @Validated RemoveRequest request) {
+        List<Menu> menuList = menuService.listByPid(request.getId());
+        if (menuList.size() > 0) {
+            return Result.error("请先删除下级菜单");
+        }
         menuService.removeById(request.getId());
         return Result.success();
     }

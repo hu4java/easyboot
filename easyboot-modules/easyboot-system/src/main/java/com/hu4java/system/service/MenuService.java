@@ -1,6 +1,7 @@
 package com.hu4java.system.service;
 
 import com.hu4java.base.service.Service;
+import com.hu4java.system.condition.MenuCondition;
 import com.hu4java.system.entity.Menu;
 
 import java.util.List;
@@ -24,4 +25,11 @@ public interface MenuService extends Service<Menu> {
      * @return      菜单列表
      */
     List<Menu> listTreeByPid(Long pid);
+
+    /**
+     * 根据条件查询
+     * @param condition 条件
+     * @return
+     */
+    List<Menu> listTreeByCondition(MenuCondition condition);
 }

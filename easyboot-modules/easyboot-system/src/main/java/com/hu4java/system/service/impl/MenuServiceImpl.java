@@ -1,9 +1,12 @@
 package com.hu4java.system.service.impl;
 
 import com.hu4java.base.service.impl.AbstractServiceImpl;
+import com.hu4java.system.condition.MenuCondition;
 import com.hu4java.system.entity.Menu;
 import com.hu4java.system.mapper.MenuMapper;
+import com.hu4java.system.mapper.RoleMenuMapper;
 import com.hu4java.system.service.MenuService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,9 @@ import java.util.Objects;
  */
 @Service
 public class MenuServiceImpl extends AbstractServiceImpl<Menu, MenuMapper> implements MenuService {
+
+    @Autowired
+    private RoleMenuMapper roleMenuMapper;
 
     @Override
     public boolean save(Menu entity) {
@@ -29,11 +35,17 @@ public class MenuServiceImpl extends AbstractServiceImpl<Menu, MenuMapper> imple
     @Override
     public boolean update(Menu entity) {
         Menu dbItem = mapper.selectById(entity.getId());
-        if (!Objects.equals(entity.getPid(), 0) && !Objects.equals(dbItem.getPid(), entity.getPid())) {
+        if (!Objects.equals(entity.getPid(), 0L) && !Objects.equals(dbItem.getPid(), entity.getPid())) {
             Menu parent = mapper.selectById(entity.getPid());
             entity.setPids(parent.getPids() + "," + parent.getId());
         }
         return returnBool(mapper.updateById(entity));
+    }
+
+    @Override
+    public boolean removeById(Long id) {
+        roleMenuMapper.deleteByMenuId(id);
+        return super.removeById(id);
     }
 
     @Override
@@ -44,5 +56,10 @@ public class MenuServiceImpl extends AbstractServiceImpl<Menu, MenuMapper> imple
     @Override
     public List<Menu> listTreeByPid(Long pid) {
         return mapper.selectTreeByPid(pid);
+    }
+
+    @Override
+    public List<Menu> listTreeByCondition(MenuCondition condition) {
+        return mapper.selectTreeByCondition(condition);
     }
 }

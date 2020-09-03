@@ -31,8 +31,12 @@
 
     <sql id="searchSql">
         <where>
-            <if test="condition.name != null and condition.name != ''">
-                AND t.name LIKE CONCAT('%', #{condition.name}, '%')
+            <if test="condition.pid != null">
+                AND t.pid = #{condition.pid}
+            </if>
+
+            <if test="condition.title != null and condition.title != ''">
+                AND t.title LIKE CONCAT('%', #{condition.title}, '%')
             </if>
 
             <if test="condition.status != null">
@@ -57,5 +61,12 @@
         where t3.user_id = #{userId}
     </select>
 
+    <select id="selectTreeByCondition" resultMap="menuMap">
+        select
+        <include refid="allColumnSql"/>
+        from sys_menu t
+        <include refid="searchSql"/>
+        order by t.order_num
+    </select>
 
 </mapper>

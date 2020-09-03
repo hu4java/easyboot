@@ -1,7 +1,9 @@
 package com.hu4java.system.mapper;
 
 import com.hu4java.base.mapper.BaseMapper;
+import com.hu4java.system.condition.DeptCondition;
 import com.hu4java.system.entity.Dept;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,4 +28,11 @@ public interface DeptMapper extends BaseMapper<Dept> {
      * @return          部门列表
      */
     List<Dept> selectByUserId(Long userId);
+
+    /**
+     * 根据条件查询
+     * @param condition 条件
+     * @return
+     */
+    List<Dept> selectByCondition(@Param("condition")DeptCondition condition);
 }

@@ -2,7 +2,9 @@ package com.hu4java.system.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hu4java.base.mapper.BaseMapper;
+import com.hu4java.system.condition.MenuCondition;
 import com.hu4java.system.entity.Menu;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,4 +48,11 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return          菜单列表
      */
     List<Menu> selectByUserId(Long userId);
+
+    /**
+     * 根据条件查询
+     * @param condition 条件
+     * @return
+     */
+    List<Menu> selectTreeByCondition(@Param("condition") MenuCondition condition);
 }
