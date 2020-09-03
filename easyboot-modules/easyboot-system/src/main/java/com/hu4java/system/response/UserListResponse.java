@@ -1,0 +1,38 @@
+package com.hu4java.system.response;
+
+import com.hu4java.base.response.BaseResponse;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+/**
+ * @author chenzhenhu
+ */
+@Getter
+@Setter
+public class UserListResponse extends BaseResponse {
+    private static final long serialVersionUID = 2660004492439639073L;
+
+    /** 用户ID*/
+    private Long id;
+    /** 创建时间*/
+    private LocalDateTime createTime;
+    /** 姓名*/
+    private String name;
+    /** 员工编号*/
+    private String code;
+    /** 头像*/
+    private String avatar;
+    /** 性别：0-未知 1-男 2-女*/
+    private Integer gender;
+    /** 手机号*/
+    private String mobile;
+    /** 邮箱*/
+    private String email;
+    /** 生日*/
+    private LocalDate birthday;
+    /** 状态：0-正常 1-禁用*/
+    private Integer status;
+}
