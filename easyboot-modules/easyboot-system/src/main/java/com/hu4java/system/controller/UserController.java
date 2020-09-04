@@ -1,6 +1,7 @@
 package com.hu4java.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hu4java.base.request.ViewRequest;
 import com.hu4java.base.response.PageResponse;
 import com.hu4java.common.result.Result;
 import com.hu4java.system.entity.User;
@@ -11,6 +12,7 @@ import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.metadata.Type;
 import ma.glasnost.orika.metadata.TypeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,5 +44,12 @@ public class UserController {
         Type<PageResponse<UserListResponse>> toType = new TypeBuilder<PageResponse<UserListResponse>>(){}.build();
         PageResponse<UserListResponse> response = mapperFacade.map(page, fromType, toType);
         return Result.success(response);
+    }
+
+    @GetMapping("/detail")
+    public Result detail(@Validated ViewRequest request) {
+        User user = userService.getById(request.getId());
+
+        return Result.success();
     }
 }

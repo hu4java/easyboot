@@ -3,6 +3,7 @@ package com.hu4java.system.response;
 import com.hu4java.base.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,4 +36,11 @@ public class UserListResponse extends BaseResponse {
     private LocalDate birthday;
     /** 状态：0-正常 1-禁用*/
     private Integer status;
+
+    public String getMobile() {
+        if (StringUtils.isNotBlank(mobile)) {
+            mobile = mobile.replaceAll("(\\w{3})\\w*(\\w{4})", "$1****$2");
+        }
+        return mobile;
+    }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hu4java.system.mapper.UserMapper">
+    <resultMap id="userMap" type="user" extends="BaseEntity.entity">
+        <!--用户名-->
+        <result property="username" column="username"/>
+        <!--密码-->
+        <result property="password" column="password"/>
+        <!--加密盐-->
+        <result property="salt" column="salt"/>
+        <!--手机号-->
+        <result property="mobile" column="mobile"/>
+        <!--邮箱-->
+        <result property="email" column="email"/>
+        <!--姓名-->
+        <result property="name" column="name"/>
+        <!--员工编号-->
+        <result property="code" column="code"/>
+        <!--头像-->
+        <result property="avatar" column="avatar"/>
+        <!--性别：0-未知 1-男 2-女-->
+        <result property="gender" column="gender"/>
+        <!--生日-->
+        <result property="birthday" column="birthday"/>
+        <!--状态：0-正常 1-禁用-->
+        <result property="status" column="status"/>
+        <!--人事状态-->
+        <result property="state" column="state"/>
+        <!--合同到期日期-->
+        <result property="contractExpireDate" column="contract_expire_date"/>
+    </resultMap>
+
+    <sql id="allColumnSql">
+		t.id,
+		t.create_by,
+		t.create_time,
+		t.update_by,
+		t.update_time,
+		t.is_delete,
+		t.version,
+		t.username,
+		t.password,
+		t.salt,
+		t.mobile,
+		t.email,
+		t.name,
+		t.code,
+		t.avatar,
+		t.gender,
+		t.birthday,
+		t.status,
+		t.state,
+		t.contract_expire_date
+
+	</sql>
+</mapper>

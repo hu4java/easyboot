@@ -41,6 +41,10 @@ public class User extends BaseEntity {
     private LocalDate birthday;
     /** 状态：0-正常 1-禁用*/
     private Integer status;
+    /** 人事状态*/
+    private Integer state;
+    /** 合同到期*/
+    private LocalDate contractExpireDate;
 
     @TableField(exist = false)
     private List<Role> roleList;
