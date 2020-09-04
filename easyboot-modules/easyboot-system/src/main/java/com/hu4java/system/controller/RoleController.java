@@ -1,6 +1,7 @@
 package com.hu4java.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hu4java.base.enums.Status;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
 import com.hu4java.common.result.Result;
@@ -48,6 +49,11 @@ public class RoleController {
         return Result.success(page);
     }
 
+    /**
+     * 角色详细
+     * @param request   参数
+     * @return
+     */
     @GetMapping("/detail")
     public Result<RoleUpdateResponse> detail(@Validated ViewRequest request) {
         Role role = roleService.getById(request.getId());
@@ -59,6 +65,18 @@ public class RoleController {
         RoleUpdateResponse response = mapperFacade.map(role, RoleUpdateResponse.class);
         response.setMenuIds(menuIds);
         return Result.success(response);
+    }
+
+    /**
+     * 角色下拉选择列表
+     * @return
+     */
+    @GetMapping("/selectList")
+    public Result<List<Role>> selectList() {
+        List<Role> roleList = roleService.listAll();
+        List<Role> list = roleList.stream().filter(role -> role.getStatus().equals(Status.ENABLE.getStatus()))
+                .collect(Collectors.toList());
+        return Result.success(list);
     }
 
     /**
