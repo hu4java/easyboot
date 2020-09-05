@@ -5,6 +5,7 @@ import com.hu4java.common.result.Result;
 import com.hu4java.common.result.ResultCode;
 import com.hu4java.request.LoginRequest;
 import com.hu4java.response.TokenResponse;
+import com.hu4java.util.ShiroUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -60,7 +61,7 @@ public class LoginController {
      */
     @RequestMapping("/logout")
     public Result<Void> logout() {
-        SecurityUtils.getSubject().logout();
+        ShiroUtils.logout();
         return Result.success();
     }
 }
