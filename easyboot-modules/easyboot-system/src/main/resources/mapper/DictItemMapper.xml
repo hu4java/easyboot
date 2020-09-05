@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hu4java.system.mapper.DictItemMapper">
+    <resultMap id="dictItemMap" type="dictItem" extends="BaseEntity.entity">
+        <!--标题-->
+        <result property="title" column="title"/>
+        <!--值-->
+        <result property="value" column="value"/>
+        <!--状态：0-正常 1-禁用-->
+        <result property="status" column="status"/>
+        <!--排序-->
+        <result property="orderNum" column="order_num"/>
+        <!--备注-->
+        <result property="remark" column="remark"/>
+        <!--关联字典类型-->
+        <result property="dictyType" column="dicty_type"/>
+    </resultMap>
+    <sql id="allColumnSql">
+		t.id,
+		t.create_by,
+		t.create_time,
+		t.update_by,
+		t.update_time,
+		t.is_delete,
+		t.version,
+		t.title,
+		t.value,
+		t.status,
+		t.order_num,
+		t.remark,
+		t.dicty_type
+
+	</sql>
+</mapper>

@@ -76,7 +76,7 @@
 				and t.birthday = #{condition.birthday}
 			</if>
 			<if test="condition.deptId != null">
-				and t2.dept_id = #{condition.deptId}
+				and find_in_set(#{condition.deptId}, t4.pids)
 			</if>
 			<if test="condition.roleId != null">
 				and t3.role_id = #{condition.roleId}
@@ -89,6 +89,7 @@
 		from sys_user t
 		left join sys_user_dept t2 on t.id = t2.user_id
 		left join sys_user_role t3 on t.id = t3.user_id
+		left join sys_dept t4 on t2.dept_id = t4.id
 		<include refid="searchSql"/>
 	</select>
 </mapper>

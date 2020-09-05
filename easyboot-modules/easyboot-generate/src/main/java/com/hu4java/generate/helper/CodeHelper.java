@@ -157,7 +157,7 @@ public class CodeHelper {
         sb.append("package ").append(prefixPackage).append(".controller;\n\n");
 
         // import
-        sb.append("import import com.baomidou.mybatisplus.extension.plugins.pagination.Page;\n");
+        sb.append("import com.baomidou.mybatisplus.extension.plugins.pagination.Page;\n");
         sb.append("import ").append(prefixPackage).append(".service.").append(request.getEntityName()).append("Service;\n");
         sb.append("import ").append(prefixPackage).append(".entity.").append(request.getEntityName()).append(";\n");
         sb.append("import ").append(prefixPackage).append(".condition.").append(conditionName).append(";\n");

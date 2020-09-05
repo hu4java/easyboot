@@ -99,8 +99,8 @@ public class UserCenterController {
      * @param request   用户数据
      * @return
      */
-    @PostMapping("/updateInfo")
-    public Result<Void> updateInfo(@RequestBody @Validated UpdateUserInfoRequest request) {
+    @PostMapping("/update")
+    public Result<Void> update(@RequestBody @Validated UpdateUserInfoRequest request) {
         User currentUser = ShiroUtils.currentLogin();
         User user = mapperFacade.map(request, User.class);
         user.setId(currentUser.getId());
