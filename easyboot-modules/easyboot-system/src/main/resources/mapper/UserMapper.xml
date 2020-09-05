@@ -54,4 +54,41 @@
 		t.contract_expire_date
 
 	</sql>
+
+	<sql id="searchSql">
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				and t.name like concat('%', #{condition.name}, '%')
+			</if>
+			<if test="condition.gender != null">
+				and t.gender = #{condition.gender}
+			</if>
+			<if test="condition.mobile != null and condition.mobile != ''">
+				and t.mobile like concat('%', #{condition.mobile}, '%')
+			</if>
+			<if test="condition.code != null and condition.code != ''">
+				and t.code like concat('%', #{condition.name}, '%')
+			</if>
+			<if test="condition.state != null">
+				and t.state = #{condition.state}
+			</if>
+			<if test="condition.birthday != null">
+				and t.birthday = #{condition.birthday}
+			</if>
+			<if test="condition.deptId != null">
+				and t2.dept_id = #{condition.deptId}
+			</if>
+			<if test="condition.roleId != null">
+				and t3.role_id = #{condition.roleId}
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectByPage" resultMap="userMap">
+		select distinct <include refid="allColumnSql"/>
+		from sys_user t
+		left join sys_user_dept t2 on t.id = t2.user_id
+		left join sys_user_role t3 on t.id = t3.user_id
+		<include refid="searchSql"/>
+	</select>
 </mapper>

@@ -6,6 +6,8 @@ import com.hu4java.base.mapper.BaseMapper;
 import com.hu4java.system.entity.UserDept;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author chenzhenhu
  */
@@ -32,5 +34,27 @@ public interface UserDeptMapper extends BaseMapper<UserDept> {
         LambdaQueryWrapper<UserDept> queryWrapper = Wrappers.lambdaQuery(UserDept.class);
         queryWrapper.eq(UserDept::getDeptId, deptId);
         return delete(queryWrapper);
+    }
+
+    /**
+     * 根据用户id查询
+     * @param userId    用户id
+     * @return          数据列表
+     */
+    default List<UserDept> selectByUserId(Long userId) {
+        LambdaQueryWrapper<UserDept> queryWrapper = Wrappers.lambdaQuery(UserDept.class);
+        queryWrapper.eq(UserDept::getUserId, userId);
+        return selectList(queryWrapper);
+    }
+
+    /**
+     * 根据部门id查询
+     * @param deptId    部门id
+     * @return          数据列表
+     */
+    default List<UserDept> selectByDeptId(Long deptId) {
+        LambdaQueryWrapper<UserDept> queryWrapper = Wrappers.lambdaQuery(UserDept.class);
+        queryWrapper.eq(UserDept::getDeptId, deptId);
+        return selectList(queryWrapper);
     }
 }

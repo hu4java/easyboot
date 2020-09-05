@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
-public class RoleUpdateRequest extends RoleRequest {
+public class RoleUpdateRequest extends RoleFormRequest {
     private static final long serialVersionUID = 4206369063077439166L;
     /** 角色ID*/
     @NotNull(message = "角色ID不能为空")

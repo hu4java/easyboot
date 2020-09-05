@@ -3,6 +3,9 @@ package com.hu4java.system.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 /**
  * 员工人事状态枚举
  * @author chenzhenhu
@@ -25,4 +28,9 @@ public enum UserState {
     private int state;
 
     private String desc;
+
+    public static UserState find(int state) {
+        Optional<UserState> item = Arrays.stream(UserState.values()).filter(userState -> userState.state == state).findFirst();
+        return item.orElse(UNKNOWN);
+    }
 }

@@ -8,7 +8,7 @@ import com.hu4java.common.result.Result;
 import com.hu4java.system.entity.Role;
 import com.hu4java.system.entity.RoleMenu;
 import com.hu4java.system.request.RoleListRequest;
-import com.hu4java.system.request.RoleRequest;
+import com.hu4java.system.request.RoleFormRequest;
 import com.hu4java.system.request.RoleUpdateRequest;
 import com.hu4java.system.response.RoleUpdateResponse;
 import com.hu4java.system.service.RoleMenuService;
@@ -85,7 +85,7 @@ public class RoleController {
      * @return
      */
     @PostMapping("/save")
-    public Result<Void> save(@RequestBody @Validated RoleRequest request) {
+    public Result<Void> save(@RequestBody @Validated RoleFormRequest request) {
         Role exist = roleService.getByCode(request.getCode());
         if (null != exist) {
             return Result.error("角色代码已存在");

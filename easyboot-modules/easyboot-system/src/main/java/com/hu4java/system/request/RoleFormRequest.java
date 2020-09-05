@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class RoleRequest extends BaseRequest {
+public class RoleFormRequest extends BaseRequest {
 
     private static final long serialVersionUID = 3048189774432038555L;
 

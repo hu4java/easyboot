@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.LocalDate;
+
 /**
  * @author hu4java
  */
@@ -21,6 +23,16 @@ public class UserCondition extends Condition<User> {
     private String email;
 
     private Integer gender;
+
+    private String code;
+
+    private Long roleId;
+
+    private Long deptId;
+
+    private Integer state;
+
+    private LocalDate birthday;
 
     @Override
     public LambdaQueryWrapper<User> queryWrapper() {

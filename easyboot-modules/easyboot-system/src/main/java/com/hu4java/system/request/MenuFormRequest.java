@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
-public class MenuRequest extends BaseRequest {
+public class MenuFormRequest extends BaseRequest {
     private static final long serialVersionUID = -4800540995326371779L;
 
     /** 标题*/

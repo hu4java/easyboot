@@ -10,10 +10,9 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
-public class MenuUpdateRequest extends MenuFormRequest {
-    private static final long serialVersionUID = -7106406021091846454L;
+public class UserUpdateRequest extends UserFormRequest {
+    private static final long serialVersionUID = 367614938200625924L;
 
-    /** 菜单id*/
-    @NotNull(message = "id不能为空")
+    @NotNull(message = "用户id不能为空")
     private Long id;
 }

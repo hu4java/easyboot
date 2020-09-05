@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("sys_role_dept")
+@TableName("sys_user_dept")
 public class UserDept extends BaseEntity {
     private static final long serialVersionUID = -165163747105455582L;
 
