@@ -12,8 +12,8 @@ import com.hu4java.system.entity.UserRole;
 import com.hu4java.system.service.UserDeptService;
 import com.hu4java.system.service.UserRoleService;
 import com.hu4java.system.service.UserService;
-import com.hu4java.web.system.request.UserFormRequest;
 import com.hu4java.web.system.request.UserListRequest;
+import com.hu4java.web.system.request.UserSaveRequest;
 import com.hu4java.web.system.request.UserUpdateRequest;
 import com.hu4java.web.system.response.UserListResponse;
 import ma.glasnost.orika.MapperFacade;
@@ -90,7 +90,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/save")
-    public Result<Void> save(@RequestBody @Validated UserFormRequest request) {
+    public Result<Void> save(@RequestBody @Validated UserSaveRequest request) {
         User user = mapperFacade.map(request, User.class);
         userService.save(user, request.getRoleIds(), request.getDeptIds());
         return Result.success();

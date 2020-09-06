@@ -2,12 +2,18 @@ package com.hu4java.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.base.service.impl.AbstractServiceImpl;
+import com.hu4java.common.constant.Constants;
 import com.hu4java.system.condition.UserCondition;
 import com.hu4java.system.entity.*;
-import com.hu4java.system.mapper.*;
+import com.hu4java.system.mapper.DeptMapper;
+import com.hu4java.system.mapper.MenuMapper;
+import com.hu4java.system.mapper.RoleMapper;
+import com.hu4java.system.mapper.UserMapper;
 import com.hu4java.system.service.UserDeptService;
 import com.hu4java.system.service.UserRoleService;
 import com.hu4java.system.service.UserService;
+import com.hu4java.util.RandomUtils;
+import com.hu4java.util.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +57,9 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserMapper> imple
 
     @Override
     public void save(User user, List<Long> roleIds, List<Long> deptIds) {
+        String salt = RandomUtils.randomString(Constants.SALT_LENGTH);
+        String password = ShiroUtils.encode(user.getPassword(), salt);
+        user.setPassword(password);
         mapper.insert(user);
         saveUserRole(user, roleIds);
         saveUserDept(user, deptIds);
