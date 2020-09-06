@@ -1,4 +1,4 @@
-package com.hu4java.web.user.controller;
+package com.hu4java.web.system.controller;
 
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
@@ -6,10 +6,10 @@ import com.hu4java.common.result.Result;
 import com.hu4java.system.condition.DeptCondition;
 import com.hu4java.system.entity.Dept;
 import com.hu4java.system.service.DeptService;
-import com.hu4java.web.user.request.DeptListRequest;
-import com.hu4java.web.user.request.DeptFormRequest;
-import com.hu4java.web.user.request.DeptUpdateRequest;
-import com.hu4java.web.user.response.DeptTreeTableResponse;
+import com.hu4java.web.system.request.DeptListRequest;
+import com.hu4java.web.system.request.DeptFormRequest;
+import com.hu4java.web.system.request.DeptUpdateRequest;
+import com.hu4java.web.system.response.DeptTreeTableResponse;
 import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

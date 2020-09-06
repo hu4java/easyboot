@@ -1,4 +1,4 @@
-package com.hu4java.web.user.controller;
+package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.base.enums.Status;
@@ -9,10 +9,10 @@ import com.hu4java.system.entity.Role;
 import com.hu4java.system.entity.RoleMenu;
 import com.hu4java.system.service.RoleMenuService;
 import com.hu4java.system.service.RoleService;
-import com.hu4java.web.user.request.RoleFormRequest;
-import com.hu4java.web.user.request.RoleListRequest;
-import com.hu4java.web.user.request.RoleUpdateRequest;
-import com.hu4java.web.user.response.RoleUpdateResponse;
+import com.hu4java.web.system.request.RoleFormRequest;
+import com.hu4java.web.system.request.RoleListRequest;
+import com.hu4java.web.system.request.RoleUpdateRequest;
+import com.hu4java.web.system.response.RoleUpdateResponse;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

@@ -1,4 +1,4 @@
-package com.hu4java.web.user.controller;
+package com.hu4java.web.system.controller;
 
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
@@ -6,10 +6,10 @@ import com.hu4java.common.result.Result;
 import com.hu4java.system.condition.MenuCondition;
 import com.hu4java.system.entity.Menu;
 import com.hu4java.system.service.MenuService;
-import com.hu4java.web.user.request.MenuListRequest;
-import com.hu4java.web.user.request.MenuSaveRequest;
-import com.hu4java.web.user.request.MenuUpdateRequest;
-import com.hu4java.web.user.response.MenuTreeTableResponse;
+import com.hu4java.web.system.request.MenuListRequest;
+import com.hu4java.web.system.request.MenuSaveRequest;
+import com.hu4java.web.system.request.MenuUpdateRequest;
+import com.hu4java.web.system.response.MenuTreeTableResponse;
 import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.hu4java.web.user.controller;
+package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.base.request.RemoveRequest;
@@ -12,10 +12,10 @@ import com.hu4java.system.entity.UserRole;
 import com.hu4java.system.service.UserDeptService;
 import com.hu4java.system.service.UserRoleService;
 import com.hu4java.system.service.UserService;
-import com.hu4java.web.user.request.UserFormRequest;
-import com.hu4java.web.user.request.UserListRequest;
-import com.hu4java.web.user.request.UserUpdateRequest;
-import com.hu4java.web.user.response.UserListResponse;
+import com.hu4java.web.system.request.UserFormRequest;
+import com.hu4java.web.system.request.UserListRequest;
+import com.hu4java.web.system.request.UserUpdateRequest;
+import com.hu4java.web.system.response.UserListResponse;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.metadata.Type;
 import ma.glasnost.orika.metadata.TypeBuilder;

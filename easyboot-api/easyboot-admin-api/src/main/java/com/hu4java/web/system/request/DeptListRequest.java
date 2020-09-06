@@ -1,4 +1,4 @@
-package com.hu4java.web.user.request;
+package com.hu4java.web.system.request;
 
 import com.hu4java.base.request.BaseRequest;
 import lombok.Getter;

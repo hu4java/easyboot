@@ -1,4 +1,4 @@
-package com.hu4java.web.user.response;
+package com.hu4java.web.system.response;
 
 import com.hu4java.base.response.BaseResponse;
 import com.hu4java.system.enums.UserState;

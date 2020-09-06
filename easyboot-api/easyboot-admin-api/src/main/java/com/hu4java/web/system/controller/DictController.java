@@ -1,4 +1,4 @@
-package com.hu4java.web.user.controller;
+package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.common.result.Result;
