@@ -14,3 +14,11 @@ spring:
         max-idle: 8
         max-active: 8
         max-wait: -1ms
+
+#app:
+#  storage:
+#    type: your type
+#    ak: your ak
+#    sk: your sk
+#    bucket: your bucket
+#    domain: your domain
