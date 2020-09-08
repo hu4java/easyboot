@@ -64,8 +64,7 @@ public class ShiroConfiguration {
 
 
         Map<String, String> filterChainMap = new LinkedHashMap<>();
-//        filterChainMap.put("/needLogin", "anon");
-//        filterChainMap.put("/unauthorized", "anon");
+
         filterChainMap.putAll(shiroFilterChainDefinition.getFilterChainMap());
 
         filterFactoryBean.setFilterChainDefinitionMap(filterChainMap);
@@ -85,7 +84,6 @@ public class ShiroConfiguration {
         ShiroRedisSessionManager sessionManager = new ShiroRedisSessionManager();
         sessionManager.setSessionDAO(redisSessionDao);
         sessionManager.setGlobalSessionTimeout(60 * 60 * 1000L); // 1小时
-        sessionManager.setDeleteInvalidSessions(true);
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
     }
