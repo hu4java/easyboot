@@ -14,4 +14,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DictServiceImpl extends AbstractServiceImpl<Dict, DictMapper> implements DictService {
 
+    @Override
+    public Dict getByType(String type) {
+        return mapper.selectByType(type);
+    }
 }

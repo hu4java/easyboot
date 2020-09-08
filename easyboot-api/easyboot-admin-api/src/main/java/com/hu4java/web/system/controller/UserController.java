@@ -24,6 +24,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -91,6 +92,14 @@ public class UserController {
      */
     @PostMapping("/save")
     public Result<Void> save(@RequestBody @Validated UserSaveRequest request) {
+        User exist = userService.getByMobile(request.getMobile());
+        if (null != exist) {
+            return Result.error("手机号已存在");
+        }
+        exist = userService.getByEmail(request.getEmail());
+        if (null != exist) {
+            return Result.error("邮箱已存在");
+        }
         User user = mapperFacade.map(request, User.class);
         userService.save(user, request.getRoleIds(), request.getDeptIds());
         return Result.success();
@@ -103,6 +112,14 @@ public class UserController {
      */
     @PostMapping("/update")
     public Result<Void> update(@RequestBody @Validated UserUpdateRequest request) {
+        User exist = userService.getByMobile(request.getMobile());
+        if (null != exist && !Objects.equals(exist.getId(), request.getId())) {
+            return Result.error("手机号已存在");
+        }
+        exist = userService.getByEmail(request.getEmail());
+        if (null != exist && !Objects.equals(exist.getId(), request.getId())) {
+            return Result.error("邮箱已存在");
+        }
         User user = mapperFacade.map(request, User.class);
         userService.update(user, request.getRoleIds(), request.getDeptIds());
         return Result.success();

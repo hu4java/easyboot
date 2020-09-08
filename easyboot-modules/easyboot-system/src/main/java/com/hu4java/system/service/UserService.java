@@ -46,4 +46,18 @@ public interface UserService extends Service<User> {
      * @return
      */
     Page<User> listByPage(Page<User> page, UserCondition condition);
+
+    /**
+     * 根据手机号查询
+     * @param mobile    手机号
+     * @return
+     */
+    User getByMobile(String mobile);
+
+    /**
+     * 根据邮箱查询
+     * @param email 邮箱
+     * @return
+     */
+    User getByEmail(String email);
 }

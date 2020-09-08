@@ -1,14 +1,18 @@
 package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hu4java.base.request.RemoveRequest;
+import com.hu4java.base.request.ViewRequest;
 import com.hu4java.common.result.Result;
 import com.hu4java.system.entity.Dict;
 import com.hu4java.system.service.DictService;
+import com.hu4java.web.system.request.DictFormRequest;
 import com.hu4java.web.system.request.DictTableRequest;
+import com.hu4java.web.system.request.DictUpdateRequest;
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 系统管理-数据字典
@@ -22,6 +26,8 @@ public class DictController {
 
 	@Autowired
 	private DictService dictService;
+	@Autowired
+	private MapperFacade mapperFacade;
 
 	/**
 	 * 字典列表
@@ -34,4 +40,58 @@ public class DictController {
 		return Result.success(page);
 	}
 
+	/**
+	 * 字典详细
+	 * @param request	参数
+	 * @return
+	 */
+	@GetMapping("/detail")
+	public Result<Dict> detail(@Validated ViewRequest request) {
+		Dict dict = dictService.getById(request.getId());
+		return Result.success(dict);
+	}
+
+	/**
+	 * 保存字典
+	 * @param request	参数
+	 * @return
+	 */
+	@PostMapping("/save")
+	public Result<Void> save(@RequestBody @Validated DictFormRequest request) {
+		Dict exist = dictService.getByType(request.getType());
+		if (null != exist) {
+			return Result.error("字典类型已存在");
+		}
+		Dict dict = mapperFacade.map(request, Dict.class);
+		dictService.save(dict);
+		return Result.success();
+	}
+
+
+	/**
+	 * 更新字典
+	 * @param request 参数
+	 * @return
+	 */
+	@PostMapping("/update")
+	public Result<Void> update(@RequestBody @Validated DictUpdateRequest request) {
+		Dict exist = dictService.getByType(request.getType());
+		if (null != exist && !exist.getId().equals(request.getId())) {
+			return Result.error("字典类型已存在");
+		}
+		Dict dict = mapperFacade.map(request, Dict.class);
+		dictService.update(dict);
+		return Result.success();
+	}
+
+	/**
+	 * 删除
+	 * @param request	参数
+	 * @return
+	 */
+	@PostMapping("/remove")
+	public Result<Void> remove(@RequestBody @Validated RemoveRequest request) {
+		dictService.removeById(request.getId());
+		return Result.success();
+	}
 }

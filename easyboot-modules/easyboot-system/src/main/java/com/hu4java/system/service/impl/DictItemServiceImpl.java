@@ -14,4 +14,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DictItemServiceImpl extends AbstractServiceImpl<DictItem, DictItemMapper> implements DictItemService {
 
+    @Override
+    public DictItem getByTitleAndDictType(String title, String dictType) {
+        return mapper.selectByTitleAndDictType(title, dictType);
+    }
 }

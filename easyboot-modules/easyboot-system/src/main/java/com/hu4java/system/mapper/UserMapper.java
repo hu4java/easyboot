@@ -33,4 +33,26 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     Page<User> selectByPage(Page<User> page, @Param("condition") UserCondition condition);
+
+    /**
+     * 根据手机号查询
+     * @param mobile    手机号
+     * @return
+     */
+    default User selectByMobile(String mobile) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getMobile, mobile);
+        return selectOne(queryWrapper);
+    }
+
+    /**
+     * 根据邮箱查询
+     * @param email 邮箱
+     * @return
+     */
+    default User selectByEmail(String email) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getEmail, email);
+        return selectOne(queryWrapper);
+    }
 }

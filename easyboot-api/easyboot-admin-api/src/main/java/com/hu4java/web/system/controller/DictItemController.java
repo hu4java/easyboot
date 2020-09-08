@@ -1,14 +1,18 @@
 package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hu4java.base.request.RemoveRequest;
+import com.hu4java.base.request.ViewRequest;
 import com.hu4java.common.result.Result;
-import com.hu4java.system.condition.DictItemCondition;
 import com.hu4java.system.entity.DictItem;
 import com.hu4java.system.service.DictItemService;
+import com.hu4java.web.system.request.DictItemFormRequest;
+import com.hu4java.web.system.request.DictItemTableRequest;
+import com.hu4java.web.system.request.DictItemUpdateRequest;
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 系统管理-数据字典数据
@@ -22,11 +26,73 @@ public class DictItemController {
 
 	@Autowired
 	private DictItemService dictItemService;
+	@Autowired
+	private MapperFacade mapperFacade;
 
+	/**
+	 * 数据列表
+	 * @param request	参数
+	 * @return
+	 */
 	@GetMapping("/list")
-	public Result<Page<DictItem>> list(Page<DictItem> page, DictItemCondition condition) {
-		page = dictItemService.listByPage(page, condition.queryWrapper());
+	public Result<Page<DictItem>> list(DictItemTableRequest request) {
+		Page<DictItem> page = dictItemService.listByPage(request.toPage(), request.queryWrapper());
 		return Result.success(page);
+	}
+
+	/**
+	 * 数据详细
+	 * @param request	参数
+	 * @return
+	 */
+	@GetMapping("/detail")
+	public Result<DictItem> detail(@Validated ViewRequest request) {
+		DictItem dictItem = dictItemService.getById(request.getId());
+		return Result.success(dictItem);
+	}
+
+	/**
+	 * 保存数据
+	 * @param request	参数
+	 * @return
+	 */
+	@PostMapping("/save")
+	public Result<Void> save(@RequestBody @Validated DictItemFormRequest request) {
+		DictItem exist = dictItemService.getByTitleAndDictType(request.getTitle(), request.getDictType());
+		if (null != exist) {
+			return Result.error("数据标题已存在");
+		}
+		DictItem dictItem = mapperFacade.map(request, DictItem.class);
+		dictItemService.save(dictItem);
+		return Result.success();
+	}
+
+
+	/**
+	 * 更新数据
+	 * @param request 参数
+	 * @return
+	 */
+	@PostMapping("/update")
+	public Result<Void> update(@RequestBody @Validated DictItemUpdateRequest request) {
+		DictItem exist = dictItemService.getByTitleAndDictType(request.getTitle(), request.getDictType());
+		if (null != exist && !exist.getId().equals(request.getId())) {
+			return Result.error("数据标题已存在");
+		}
+		DictItem dictItem = mapperFacade.map(request, DictItem.class);
+		dictItemService.update(dictItem);
+		return Result.success();
+	}
+
+	/**
+	 * 删除数据
+	 * @param request	参数
+	 * @return
+	 */
+	@PostMapping("/remove")
+	public Result<Void> remove(@RequestBody @Validated RemoveRequest request) {
+		dictItemService.removeById(request.getId());
+		return Result.success();
 	}
 
 }

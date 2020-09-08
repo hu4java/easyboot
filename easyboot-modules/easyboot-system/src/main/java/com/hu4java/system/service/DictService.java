@@ -9,4 +9,10 @@ import com.hu4java.system.entity.Dict;
  */
 public interface DictService extends Service<Dict> {
 
+    /**
+     * 根据type 查询
+     * @param type  类型
+     * @return
+     */
+    Dict getByType(String type);
 }

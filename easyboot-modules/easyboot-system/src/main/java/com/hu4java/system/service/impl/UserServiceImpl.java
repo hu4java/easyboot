@@ -60,6 +60,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserMapper> imple
         String salt = RandomUtils.randomString(Constants.SALT_LENGTH);
         String password = ShiroUtils.encode(user.getPassword(), salt);
         user.setPassword(password);
+        user.setSalt(salt);
         mapper.insert(user);
         saveUserRole(user, roleIds);
         saveUserDept(user, deptIds);
@@ -81,6 +82,17 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserMapper> imple
     @Override
     public Page<User> listByPage(Page<User> page, UserCondition condition) {
         return mapper.selectByPage(page, condition);
+    }
+
+    @Override
+    public User getByMobile(String mobile) {
+
+        return mapper.selectByMobile(mobile);
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        return mapper.selectByEmail(email);
     }
 
     /**

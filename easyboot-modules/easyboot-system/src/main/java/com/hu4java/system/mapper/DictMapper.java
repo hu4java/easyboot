@@ -1,5 +1,6 @@
 package com.hu4java.system.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hu4java.base.mapper.BaseMapper;
 import com.hu4java.system.entity.Dict;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DictMapper extends BaseMapper<Dict> {
 
+    /**
+     * 根据类型查询
+     * @param type  类型
+     * @return
+     */
+    default Dict selectByType(String type) {
+        LambdaQueryWrapper<Dict> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Dict::getType, type);
+        return selectOne(queryWrapper);
+    }
 }

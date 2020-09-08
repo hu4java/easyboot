@@ -9,4 +9,11 @@ import com.hu4java.system.entity.DictItem;
  */
 public interface DictItemService extends Service<DictItem> {
 
+    /**
+     * 根据标题和类型查询
+     * @param title 标题
+     * @param dictType 类型
+     * @return
+     */
+    DictItem getByTitleAndDictType(String title, String dictType);
 }
