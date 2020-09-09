@@ -31,6 +31,8 @@ public class AntRouteResponse extends BaseResponse {
     private boolean hidden;
     /** 路由名*/
     private String routeName;
+    /** 重定向*/
+    private String redirect;
     /** 组件*/
     private String component;
     /** 隐藏*/

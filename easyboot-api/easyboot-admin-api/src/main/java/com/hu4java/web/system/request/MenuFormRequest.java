@@ -38,7 +38,9 @@ public class MenuFormRequest extends BaseRequest {
     @NotNull(message = "是否隐藏不能为空")
     private Boolean hidden;
     /** 路由名*/
-    private String routerName;
+    private String routeName;
+    /** 重定向*/
+    private String redirect;
     /** 组件*/
     private String component;
     /** 隐藏菜单*/
