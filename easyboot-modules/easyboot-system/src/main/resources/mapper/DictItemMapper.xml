@@ -14,7 +14,7 @@
         <!--备注-->
         <result property="remark" column="remark"/>
         <!--关联字典类型-->
-        <result property="dictyType" column="dicty_type"/>
+        <result property="dictType" column="dict_type"/>
     </resultMap>
     <sql id="allColumnSql">
 		t.id,
@@ -29,7 +29,13 @@
 		t.status,
 		t.order_num,
 		t.remark,
-		t.dicty_type
+		t.dict_type
 
 	</sql>
+
+	<update id="updateDictTypeByOldDictType">
+		update sys_dict_item
+		set dict_type = #{newDictType}
+		where dict_type = #{oldDictType}
+	</update>
 </mapper>

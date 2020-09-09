@@ -30,7 +30,7 @@ public class DictItemTableRequest extends PageRequest<DictItem> {
             queryWrapper.like(DictItem::getTitle, title);
         }
         if (StringUtils.isNotBlank(dictType)) {
-            queryWrapper.like(DictItem::getDictType, dictType);
+            queryWrapper.eq(DictItem::getDictType, dictType);
         }
         if (null != status) {
             queryWrapper.eq(DictItem::getStatus, status);

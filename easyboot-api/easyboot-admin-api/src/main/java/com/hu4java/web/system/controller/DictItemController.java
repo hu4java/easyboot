@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @date	2020-09-05 22:40:23
  */
 @RestController
-@RequestMapping("/system/DictItem")
+@RequestMapping("/dict/item")
 public class DictItemController {
 
 	@Autowired

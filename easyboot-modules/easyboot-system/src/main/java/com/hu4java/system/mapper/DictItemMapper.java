@@ -3,6 +3,7 @@ package com.hu4java.system.mapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hu4java.base.mapper.BaseMapper;
 import com.hu4java.system.entity.DictItem;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,6 +13,15 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DictItemMapper extends BaseMapper<DictItem> {
+
+
+    /**
+     * 更新字典类型
+     * @param oldDictType   原类型
+     * @param newDictType   新类型
+     * @return              影响行数
+     */
+    int updateDictTypeByOldDictType(@Param("oldDictType") String oldDictType,@Param("newDictType") String newDictType);
 
     /**
      * 根据标题和字典类型查询

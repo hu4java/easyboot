@@ -1,6 +1,7 @@
 package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hu4java.base.enums.Status;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
 import com.hu4java.common.result.Result;
@@ -13,6 +14,9 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 系统管理-数据字典
@@ -38,6 +42,17 @@ public class DictController {
 	public Result<Page<Dict>> list(DictTableRequest request) {
 		Page<Dict> page = dictService.listByPage(request.toPage(), request.queryWrapper());
 		return Result.success(page);
+	}
+
+	/**
+	 * 下拉框列表
+	 * @return
+	 */
+	@GetMapping("/selectList")
+	public Result<List<Dict>> selectList() {
+		List<Dict> list = dictService.listAll();
+		list = list.stream().filter(dict -> dict.getStatus().equals(Status.ENABLE.getStatus())).collect(Collectors.toList());
+		return Result.success(list);
 	}
 
 	/**
