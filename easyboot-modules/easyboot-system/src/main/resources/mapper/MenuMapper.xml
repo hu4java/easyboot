@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hu4java.system.mapper.MenuMapper">
     <resultMap type="menu" id="menuMap" extends="BaseEntity.entity">
+    </resultMap>
+
+    <resultMap type="menu" id="menuTreeMap" extends="BaseEntity.entity">
 
         <collection property="children" ofType="menu" column="id" select="selectTreeByPid" />
 
@@ -45,7 +48,7 @@
         </where>
     </sql>
 
-    <select id="selectTreeByPid" resultMap="menuMap">
+    <select id="selectTreeByPid" resultMap="menuTreeMap">
         select
         <include refid="allColumnSql"/>
         from sys_menu t
@@ -61,7 +64,7 @@
         where t3.user_id = #{userId}
     </select>
 
-    <select id="selectTreeByCondition" resultMap="menuMap">
+    <select id="selectTreeByCondition" resultMap="menuTreeMap">
         select
         <include refid="allColumnSql"/>
         from sys_menu t

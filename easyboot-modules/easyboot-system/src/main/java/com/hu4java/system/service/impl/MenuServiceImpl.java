@@ -62,4 +62,9 @@ public class MenuServiceImpl extends AbstractServiceImpl<Menu, MenuMapper> imple
     public List<Menu> listTreeByCondition(MenuCondition condition) {
         return mapper.selectTreeByCondition(condition);
     }
+
+    @Override
+    public List<Menu> listByUserId(Long userId) {
+        return mapper.selectByUserId(userId);
+    }
 }

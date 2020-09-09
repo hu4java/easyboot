@@ -54,8 +54,8 @@ public class MenuController {
      * @param request   查询id
      * @return
      */
-    @GetMapping("/getById")
-    public Result<MenuUpdateRequest> getById(@Validated ViewRequest request) {
+    @GetMapping("/detail")
+    public Result<MenuUpdateRequest> detail(@Validated ViewRequest request) {
         Menu menu = menuService.getById(request.getId());
         if (null == menu) {
             return Result.error("菜单数据不存在");

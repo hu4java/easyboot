@@ -32,4 +32,11 @@ public interface MenuService extends Service<Menu> {
      * @return
      */
     List<Menu> listTreeByCondition(MenuCondition condition);
+
+    /**
+     * 根据用户ID查询
+     * @param userId    用户ID
+     * @return
+     */
+    List<Menu> listByUserId(Long userId);
 }
