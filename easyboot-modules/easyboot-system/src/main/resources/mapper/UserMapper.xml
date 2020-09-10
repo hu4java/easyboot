@@ -76,7 +76,7 @@
 				and t.birthday = #{condition.birthday}
 			</if>
 			<if test="condition.deptId != null">
-				and find_in_set(#{condition.deptId}, t4.pids)
+				and (t2.dept_id = #{condition.deptId} or find_in_set(#{condition.deptId}, t4.pids))
 			</if>
 			<if test="condition.roleId != null">
 				and t3.role_id = #{condition.roleId}

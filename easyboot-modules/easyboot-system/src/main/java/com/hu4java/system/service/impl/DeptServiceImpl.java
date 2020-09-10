@@ -1,6 +1,7 @@
 package com.hu4java.system.service.impl;
 
 import com.hu4java.base.service.impl.AbstractServiceImpl;
+import com.hu4java.common.constant.Constants;
 import com.hu4java.system.condition.DeptCondition;
 import com.hu4java.system.entity.Dept;
 import com.hu4java.system.mapper.DeptMapper;
@@ -19,6 +20,27 @@ public class DeptServiceImpl extends AbstractServiceImpl<Dept, DeptMapper> imple
 
     @Autowired
     private UserDeptMapper userDeptMapper;
+
+    @Override
+    public boolean save(Dept entity) {
+        if (entity.getPid().equals(Constants.TOP_PID)) {
+            entity.setPids("0");
+        } else {
+            Dept parent = mapper.selectById(entity.getPid());
+            entity.setPids(parent.getPids() + "," + parent.getId());
+        }
+        return super.save(entity);
+    }
+
+    @Override
+    public boolean update(Dept entity) {
+        Dept old = mapper.selectById(entity.getId());
+        if (!old.getPid().equals(entity.getPid())) {
+            Dept parent = mapper.selectById(entity.getPid());
+            entity.setPids(parent.getPids() + "," + parent.getId());
+        }
+        return super.update(entity);
+    }
 
     @Override
     public boolean removeById(Long id) {

@@ -25,6 +25,8 @@ public class Dept extends BaseEntity {
     private String code;
     /** 上级部门id*/
     private Long pid;
+    /** 上级部门id集合*/
+    private String pids;
     /** 联系电话*/
     private String phone;
     /** 邮箱*/

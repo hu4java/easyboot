@@ -18,6 +18,7 @@ import com.hu4java.web.common.response.AntRouteResponse;
 import com.hu4java.web.common.response.EleRouteResponse;
 import com.hu4java.web.common.response.UserInfoResponse;
 import ma.glasnost.orika.MapperFacade;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ import java.util.stream.Collectors;
  * @author hu4java
  */
 @RestController
-@RequestMapping("/user/center")
-public class UserCenterController {
+@RequestMapping("/account/center")
+public class AccountCenterController {
 
     @Autowired
     private UserService userService;
@@ -53,6 +54,10 @@ public class UserCenterController {
         List<String> roleList = current.getRoleList().stream().filter(role -> role.getStatus().equals(Status.ENABLE.getStatus()))
                 .map(Role::getCode).collect(Collectors.toList());
         response.setRoles(roleList);
+        List<String> permissions = current.getMenuList().stream()
+                .filter(menu -> menu.getStatus().equals(Status.ENABLE.getStatus()) && StringUtils.isNotBlank(menu.getCode()))
+                .map(Menu::getCode).collect(Collectors.toList());
+        response.setPermissions(permissions);
         return Result.success(response);
     }
 
