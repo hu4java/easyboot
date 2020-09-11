@@ -14,6 +14,7 @@ spring:
     throw-exception-if-no-handler-found: true
   resources:
     add-mappings: false
+
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
   type-aliases-super-type: com.hu4java.base.entity.BaseEntity
