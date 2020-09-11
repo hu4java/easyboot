@@ -2,6 +2,9 @@ package com.hu4java.system.service;
 
 import com.hu4java.base.service.Service;
 import com.hu4java.system.entity.DictItem;
+
+import java.util.List;
+
 /**
  * 字典数据表
  * @author	EasyBoot
@@ -16,4 +19,11 @@ public interface DictItemService extends Service<DictItem> {
      * @return
      */
     DictItem getByTitleAndDictType(String title, String dictType);
+
+    /**
+     * 根据类型查询
+     * @param dictType  类型
+     * @return
+     */
+    List<DictItem> listByDictType(String dictType);
 }

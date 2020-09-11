@@ -7,12 +7,15 @@ import com.hu4java.common.result.Result;
 import com.hu4java.system.entity.DictItem;
 import com.hu4java.system.service.DictItemService;
 import com.hu4java.web.system.request.DictItemFormRequest;
+import com.hu4java.web.system.request.DictItemQueryRequest;
 import com.hu4java.web.system.request.DictItemTableRequest;
 import com.hu4java.web.system.request.DictItemUpdateRequest;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 系统管理-数据字典数据
@@ -38,6 +41,17 @@ public class DictItemController {
 	public Result<Page<DictItem>> list(DictItemTableRequest request) {
 		Page<DictItem> page = dictItemService.listByPage(request.toPage(), request.queryWrapper());
 		return Result.success(page);
+	}
+
+	/**
+	 * 字典数据列表
+	 * @param request	参数
+	 * @return
+	 */
+	@GetMapping("/listByDictType")
+	public Result<List<DictItem>> listByDictType(DictItemQueryRequest request) {
+		List<DictItem> list = dictItemService.listByDictType(request.getDictType());
+		return Result.success(list);
 	}
 
 	/**

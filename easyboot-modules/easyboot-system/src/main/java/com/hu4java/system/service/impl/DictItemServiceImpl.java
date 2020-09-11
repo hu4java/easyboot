@@ -6,6 +6,8 @@ import com.hu4java.system.entity.DictItem;
 import com.hu4java.system.mapper.DictItemMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 字典数据表
  * @author	EasyBoot
@@ -17,5 +19,10 @@ public class DictItemServiceImpl extends AbstractServiceImpl<DictItem, DictItemM
     @Override
     public DictItem getByTitleAndDictType(String title, String dictType) {
         return mapper.selectByTitleAndDictType(title, dictType);
+    }
+
+    @Override
+    public List<DictItem> listByDictType(String dictType) {
+        return mapper.selectByDictType(dictType);
     }
 }
