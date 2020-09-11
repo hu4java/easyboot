@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
 import com.hu4java.base.response.PageResponse;
+import com.hu4java.common.constant.Constants;
 import com.hu4java.common.result.Result;
 import com.hu4java.system.condition.UserCondition;
 import com.hu4java.system.entity.User;
@@ -12,7 +13,10 @@ import com.hu4java.system.entity.UserRole;
 import com.hu4java.system.service.UserDeptService;
 import com.hu4java.system.service.UserRoleService;
 import com.hu4java.system.service.UserService;
+import com.hu4java.util.RandomUtils;
+import com.hu4java.util.ShiroUtils;
 import com.hu4java.web.system.request.UserListRequest;
+import com.hu4java.web.system.request.UserResetPasswordRequest;
 import com.hu4java.web.system.request.UserSaveRequest;
 import com.hu4java.web.system.request.UserUpdateRequest;
 import com.hu4java.web.system.response.UserListResponse;
@@ -122,6 +126,32 @@ public class UserController {
         }
         User user = mapperFacade.map(request, User.class);
         userService.update(user, request.getRoleIds(), request.getDeptIds());
+        return Result.success();
+    }
+
+    /**
+     * 重置密码
+     * @param request   参数
+     * @return
+     */
+    @PostMapping("/resetPassword")
+    public Result<Void> resetPassword(@RequestBody @Validated UserResetPasswordRequest request) {
+        User exist = userService.getById(request.getId());
+        if (null == exist) {
+            return Result.error("用户数据不存在");
+        }
+
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
+            return Result.error("两次密码输入不一致");
+        }
+
+        String salt = RandomUtils.randomNumber(Constants.SALT_LENGTH);
+        String password = ShiroUtils.encode(request.getPassword(), salt);
+        User user = new User();
+        user.setId(request.getId());
+        user.setSalt(salt);
+        user.setPassword(password);
+        userService.update(user);
         return Result.success();
     }
 
