@@ -49,6 +49,11 @@ public class MenuServiceImpl extends AbstractServiceImpl<Menu, MenuMapper> imple
     }
 
     @Override
+    public Menu getByRouteName(String routeName) {
+        return mapper.selectByRouteName(routeName);
+    }
+
+    @Override
     public List<Menu> listByPid(Long pid) {
         return mapper.selectByPid(pid);
     }

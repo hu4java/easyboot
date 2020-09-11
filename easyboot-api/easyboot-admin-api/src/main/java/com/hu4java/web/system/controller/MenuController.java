@@ -5,6 +5,7 @@ import com.hu4java.base.request.ViewRequest;
 import com.hu4java.common.result.Result;
 import com.hu4java.system.condition.MenuCondition;
 import com.hu4java.system.entity.Menu;
+import com.hu4java.system.enums.MenuType;
 import com.hu4java.system.service.MenuService;
 import com.hu4java.web.system.request.MenuListRequest;
 import com.hu4java.web.system.request.MenuSaveRequest;
@@ -71,6 +72,12 @@ public class MenuController {
      */
     @PostMapping("/save")
     public Result<Void> save(@RequestBody @Validated MenuSaveRequest request) {
+        if (!request.getType().equals(MenuType.BUTTON.getType())) {
+            Menu exist = menuService.getByRouteName(request.getRouteName());
+            if (null != exist) {
+                return Result.error("路由名已存在");
+            }
+        }
         Menu menu = mapperFacade.map(request, Menu.class);
         menuService.save(menu);
         return Result.success();
@@ -83,6 +90,13 @@ public class MenuController {
      */
     @PostMapping("/update")
     public Result<Void> update(@RequestBody @Validated MenuUpdateRequest request) {
+        if (!request.getType().equals(MenuType.BUTTON.getType())) {
+            Menu exist = menuService.getByRouteName(request.getRouteName());
+            if (null != exist && !exist.getId().equals(request.getId())) {
+                return Result.error("路由名已存在");
+            }
+
+        }
         Menu menu = mapperFacade.map(request, Menu.class);
         menuService.update(menu);
         return Result.success();

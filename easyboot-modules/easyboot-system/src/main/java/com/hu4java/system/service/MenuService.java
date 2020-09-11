@@ -13,6 +13,13 @@ public interface MenuService extends Service<Menu> {
 
 
     /**
+     * 根据路由名查询
+     * @param routeName 路由名
+     * @return
+     */
+    Menu getByRouteName(String routeName);
+
+    /**
      * 根据上级id查询树
      * @param pid
      * @return

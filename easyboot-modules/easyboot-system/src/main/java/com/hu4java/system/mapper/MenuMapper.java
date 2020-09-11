@@ -17,6 +17,17 @@ import java.util.List;
 public interface MenuMapper extends BaseMapper<Menu> {
 
     /**
+     * 根据路由名查询
+     * @param routeName 路由名
+     * @return
+     */
+    default Menu selectByRouteName(String routeName) {
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Menu::getRouteName, routeName);
+        return selectOne(queryWrapper);
+    }
+
+    /**
      * 根据上级id查询
      * @param pid   上级id
      * @return      菜单列表
