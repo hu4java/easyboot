@@ -1,5 +1,6 @@
 package com.hu4java.web.common.controller;
 
+import com.hu4java.base.annotation.Log;
 import com.hu4java.base.annotation.NoAuth;
 import com.hu4java.base.result.Result;
 import com.hu4java.base.result.ResultCode;
@@ -29,6 +30,7 @@ public class LoginController {
      * @param request   登录数据
      * @return          Token
      */
+    @Log
     @NoAuth
     @PostMapping("/login")
     public Result<TokenResponse> login(@RequestBody @Validated LoginRequest request) {

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hu4java.system.mapper.OperationLogMapper">
+    <resultMap id="operationLogMap" type="operationLog" extends="BaseEntity.entity">
+        <!--业务类型-->
+        <result property="type" column="type"/>
+        <!--描述-->
+        <result property="description" column="description"/>
+        <!--IP-->
+        <result property="ip" column="ip"/>
+        <!--参数-->
+        <result property="parameter" column="parameter"/>
+        <!--返回数据-->
+        <result property="returnBody" column="return_body"/>
+        <!--状态: 0-成功 1-异常-->
+        <result property="status" column="status"/>
+        <!--错误信息-->
+        <result property="errorMsg" column="error_msg"/>
+        <!--位置-->
+        <result property="location" column="location"/>
+        <!--方法-->
+        <result property="method" column="method"/>
+        <!--请求方法-->
+        <result property="requestMethod" column="request_method"/>
+    </resultMap>
+    <sql id="allColumnSql">
+		t.id,
+		t.create_by,
+		t.create_time,
+		t.update_by,
+		t.update_time,
+		t.is_delete,
+		t.version,
+		t.type,
+		t.description,
+		t.ip,
+		t.parameter,
+		t.return_body,
+		t.status,
+		t.error_msg,
+		t.location,
+		t.method,
+		t.request_method
+
+	</sql>
+</mapper>

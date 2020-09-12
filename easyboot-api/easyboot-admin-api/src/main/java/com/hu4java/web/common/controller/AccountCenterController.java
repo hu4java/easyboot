@@ -1,9 +1,9 @@
 package com.hu4java.web.common.controller;
 
 import com.hu4java.base.enums.Status;
-import com.hu4java.common.core.constant.Constants;
 import com.hu4java.base.result.Result;
 import com.hu4java.base.result.ResultCode;
+import com.hu4java.common.core.constant.Constants;
 import com.hu4java.system.entity.Menu;
 import com.hu4java.system.entity.Role;
 import com.hu4java.system.entity.User;
