@@ -1,7 +1,7 @@
 package com.hu4java.web.generate.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hu4java.common.result.Result;
+import com.hu4java.base.result.Result;
 import com.hu4java.generate.condition.TableCondition;
 import com.hu4java.generate.entity.Column;
 import com.hu4java.generate.entity.Table;

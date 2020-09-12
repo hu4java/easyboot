@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration  scan="true" scanPeriod="60 seconds" debug="false">
+    <springProperty name="LOG_PATH" source="logging.file.path" defaultValue="/home/easyboot/logs" />
     <property name="app.name" value="easyboot-admin-api" />
     <contextName>${app.name}</contextName>
     <!-- 日志输出路径 -->
@@ -114,10 +115,6 @@
         <logger name="com.hu4java" level="debug" />
         <root level="debug">
             <appender-ref ref="console" />
-            <appender-ref ref="debug" />
-            <appender-ref ref="info" />
-            <appender-ref ref="warn" />
-            <appender-ref ref="error" />
         </root>
     </springProfile>
 

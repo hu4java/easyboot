@@ -3,7 +3,7 @@ package com.hu4java.web.system.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
-import com.hu4java.common.result.Result;
+import com.hu4java.base.result.Result;
 import com.hu4java.system.entity.DictItem;
 import com.hu4java.system.service.DictItemService;
 import com.hu4java.web.system.request.DictItemFormRequest;

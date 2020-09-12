@@ -1,7 +1,7 @@
 package com.hu4java.system.service.impl;
 
 import com.hu4java.base.service.impl.AbstractServiceImpl;
-import com.hu4java.common.constant.Constants;
+import com.hu4java.common.core.constant.Constants;
 import com.hu4java.system.condition.DeptCondition;
 import com.hu4java.system.entity.Dept;
 import com.hu4java.system.mapper.DeptMapper;

@@ -1,8 +1,8 @@
 package com.hu4java.web.common.controller;
 
 import com.hu4java.base.annotation.NoAuth;
-import com.hu4java.common.result.Result;
-import com.hu4java.common.result.ResultCode;
+import com.hu4java.base.result.Result;
+import com.hu4java.base.result.ResultCode;
 import com.hu4java.web.common.request.LoginRequest;
 import com.hu4java.web.common.response.TokenResponse;
 import com.hu4java.util.ShiroUtils;

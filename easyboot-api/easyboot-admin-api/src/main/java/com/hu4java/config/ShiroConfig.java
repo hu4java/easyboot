@@ -1,6 +1,6 @@
 package com.hu4java.config;
 
-import com.hu4java.common.config.ShiroConfiguration;
+import com.hu4java.common.core.config.ShiroConfiguration;
 import com.hu4java.sercuity.UserRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;

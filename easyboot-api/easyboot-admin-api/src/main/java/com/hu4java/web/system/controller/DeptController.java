@@ -2,7 +2,7 @@ package com.hu4java.web.system.controller;
 
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
-import com.hu4java.common.result.Result;
+import com.hu4java.base.result.Result;
 import com.hu4java.system.condition.DeptCondition;
 import com.hu4java.system.entity.Dept;
 import com.hu4java.system.service.DeptService;

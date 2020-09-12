@@ -19,7 +19,12 @@
     <dependencies>
         <dependency>
             <groupId>com.hu4java</groupId>
-            <artifactId>easyboot-common</artifactId>
+            <artifactId>easyboot-common-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hu4java</groupId>
+            <artifactId>easyboot-common-manager</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>

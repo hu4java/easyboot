@@ -1,6 +1,6 @@
 package com.hu4java.generate.helper;
 
-import com.hu4java.common.constant.DateConstants;
+import com.hu4java.common.core.constant.DateConstants;
 import com.hu4java.generate.request.GenerateFieldRequest;
 import com.hu4java.generate.request.GenerateRequest;
 import com.hu4java.util.StringUtils;
@@ -161,7 +161,7 @@ public class CodeHelper {
         sb.append("import ").append(prefixPackage).append(".service.").append(request.getEntityName()).append("Service;\n");
         sb.append("import ").append(prefixPackage).append(".entity.").append(request.getEntityName()).append(";\n");
         sb.append("import ").append(prefixPackage).append(".condition.").append(conditionName).append(";\n");
-        sb.append("import com.hu4java.common.result.Result;\n");
+        sb.append("import com.hu4java.base.result.Result;\n");
         sb.append("import org.springframework.beans.factory.annotation.Autowired;\n");
         sb.append("import org.springframework.web.bind.annotation.GetMapping;\n");
         sb.append("import org.springframework.web.bind.annotation.PostMapping;\n");

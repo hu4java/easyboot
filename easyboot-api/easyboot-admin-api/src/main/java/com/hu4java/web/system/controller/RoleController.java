@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.base.enums.Status;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
-import com.hu4java.common.result.Result;
+import com.hu4java.base.result.Result;
 import com.hu4java.system.entity.Role;
 import com.hu4java.system.entity.RoleMenu;
 import com.hu4java.system.service.RoleMenuService;
