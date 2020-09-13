@@ -1,6 +1,8 @@
 package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hu4java.base.annotation.Log;
+import com.hu4java.base.enums.LogType;
 import com.hu4java.base.enums.Status;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
@@ -84,6 +86,7 @@ public class RoleController {
      * @param request   角色数据
      * @return
      */
+    @Log(desc = "保存角色", type = LogType.SAVE)
     @PostMapping("/save")
     public Result<Void> save(@RequestBody @Validated RoleFormRequest request) {
         Role exist = roleService.getByCode(request.getCode());
@@ -100,6 +103,7 @@ public class RoleController {
      * @param request   角色数据
      * @return
      */
+    @Log(desc = "更新角色", type = LogType.UPDATE)
     @PostMapping("/update")
     public Result<Void> update(@RequestBody @Validated RoleUpdateRequest request) {
         Role exist = roleService.getById(request.getId());
@@ -120,9 +124,14 @@ public class RoleController {
      * @param request   角色ID
      * @return
      */
+    @Log(desc = "删除角色", type = LogType.REMOVE)
     @PostMapping("/remove")
-    public Result<Void> remove(@RequestBody @Validated RemoveRequest request) {
-        roleService.removeById(request.getId());
-        return Result.success();
+    public Result<Role> remove(@RequestBody @Validated RemoveRequest request) {
+        Role role = roleService.getById(request.getId());
+        if (null != role) {
+            roleService.removeById(request.getId());
+        }
+
+        return Result.success(role);
     }
 }

@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface Log {
 
-    LogType type() default LogType.NONE;
-
     String desc() default "";
+
+    LogType type() default LogType.NONE;
 }

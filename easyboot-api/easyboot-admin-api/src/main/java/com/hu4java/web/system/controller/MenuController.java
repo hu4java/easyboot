@@ -1,5 +1,7 @@
 package com.hu4java.web.system.controller;
 
+import com.hu4java.base.annotation.Log;
+import com.hu4java.base.enums.LogType;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
 import com.hu4java.base.result.Result;
@@ -70,6 +72,7 @@ public class MenuController {
      * @param request 保存数据
      * @return
      */
+    @Log(desc = "保存菜单", type = LogType.SAVE)
     @PostMapping("/save")
     public Result<Void> save(@RequestBody @Validated MenuSaveRequest request) {
         if (!request.getType().equals(MenuType.BUTTON.getType())) {
@@ -88,6 +91,7 @@ public class MenuController {
      * @param request 更新数据
      * @return
      */
+    @Log(desc = "更新菜单", type = LogType.UPDATE)
     @PostMapping("/update")
     public Result<Void> update(@RequestBody @Validated MenuUpdateRequest request) {
         if (!request.getType().equals(MenuType.BUTTON.getType())) {
@@ -107,14 +111,19 @@ public class MenuController {
      * @param request   数据id
      * @return
      */
+    @Log(desc = "删除菜单", type = LogType.REMOVE)
     @PostMapping("/remove")
-    public Result<Void> remove(@RequestBody @Validated RemoveRequest request) {
+    public Result<Menu> remove(@RequestBody @Validated RemoveRequest request) {
         List<Menu> menuList = menuService.listByPid(request.getId());
         if (menuList.size() > 0) {
             return Result.error("请先删除下级菜单");
         }
-        menuService.removeById(request.getId());
-        return Result.success();
+        Menu menu = menuService.getById(request.getId());
+        if (null != menu) {
+            menuService.removeById(request.getId());
+        }
+
+        return Result.success(menu);
     }
 
 }

@@ -1,12 +1,14 @@
 package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hu4java.base.request.ViewRequest;
 import com.hu4java.base.result.Result;
 import com.hu4java.system.entity.OperationLog;
 import com.hu4java.system.service.OperationLogService;
 import com.hu4java.web.system.request.OperationLogTableRequest;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,4 +32,9 @@ public class OperationLogController {
 		return Result.success(page);
 	}
 
+	@GetMapping("/detail")
+	public Result<OperationLog> detail(@Validated ViewRequest request) {
+		OperationLog log = operationLogService.getById(request.getId());
+		return Result.success(log);
+	}
 }

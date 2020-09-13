@@ -1,13 +1,15 @@
 package com.hu4java.web.system.controller;
 
+import com.hu4java.base.annotation.Log;
+import com.hu4java.base.enums.LogType;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
 import com.hu4java.base.result.Result;
 import com.hu4java.system.condition.DeptCondition;
 import com.hu4java.system.entity.Dept;
 import com.hu4java.system.service.DeptService;
-import com.hu4java.web.system.request.DeptListRequest;
 import com.hu4java.web.system.request.DeptFormRequest;
+import com.hu4java.web.system.request.DeptListRequest;
 import com.hu4java.web.system.request.DeptUpdateRequest;
 import com.hu4java.web.system.response.DeptTreeTableResponse;
 import ma.glasnost.orika.MapperFacade;
@@ -70,6 +72,7 @@ public class DeptController {
      * @param request   保存参数
      * @return
      */
+    @Log(desc = "保存部门", type = LogType.SAVE)
     @PostMapping("/save")
     public Result<Void> save(@RequestBody @Validated DeptFormRequest request) {
         Dept dept = mapperFacade.map(request, Dept.class);
@@ -82,6 +85,7 @@ public class DeptController {
      * @param request   更新参数
      * @return
      */
+    @Log(desc = "更新部门", type = LogType.UPDATE)
     @PostMapping("/update")
     public Result<Void> update(@RequestBody @Validated DeptUpdateRequest request) {
         Dept dept = mapperFacade.map(request, Dept.class);
@@ -94,13 +98,15 @@ public class DeptController {
      * @param request   删除参数
      * @return
      */
+    @Log(desc = "删除部门", type = LogType.REMOVE)
     @PostMapping("/remove")
-    public Result<Void> remove(@RequestBody @Validated RemoveRequest request) {
+    public Result<Dept> remove(@RequestBody @Validated RemoveRequest request) {
         List<Dept> deptList = deptService.listByPid(request.getId());
         if (deptList.size() > 0) {
             return Result.error("请先删除下级部门");
         }
+        Dept dept = deptService.getById(request.getId());
         deptService.removeById(request.getId());
-        return Result.success();
+        return Result.success(dept);
     }
 }

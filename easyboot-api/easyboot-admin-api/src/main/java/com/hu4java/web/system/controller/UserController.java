@@ -1,11 +1,13 @@
 package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hu4java.base.annotation.Log;
+import com.hu4java.base.enums.LogType;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
 import com.hu4java.base.response.PageResponse;
-import com.hu4java.common.core.constant.Constants;
 import com.hu4java.base.result.Result;
+import com.hu4java.common.core.constant.Constants;
 import com.hu4java.system.condition.UserCondition;
 import com.hu4java.system.entity.User;
 import com.hu4java.system.entity.UserDept;
@@ -94,6 +96,7 @@ public class UserController {
      * @param request   参数
      * @return
      */
+    @Log(desc = "保存用户", type = LogType.SAVE)
     @PostMapping("/save")
     public Result<Void> save(@RequestBody @Validated UserSaveRequest request) {
         User exist = userService.getByMobile(request.getMobile());
@@ -114,6 +117,7 @@ public class UserController {
      * @param request   参数
      * @return
      */
+    @Log(desc = "更新用户", type = LogType.UPDATE)
     @PostMapping("/update")
     public Result<Void> update(@RequestBody @Validated UserUpdateRequest request) {
         User exist = userService.getByMobile(request.getMobile());
@@ -134,6 +138,7 @@ public class UserController {
      * @param request   参数
      * @return
      */
+    @Log(desc = "重置密码", type = LogType.UPDATE)
     @PostMapping("/resetPassword")
     public Result<Void> resetPassword(@RequestBody @Validated UserResetPasswordRequest request) {
         User exist = userService.getById(request.getId());
@@ -160,9 +165,14 @@ public class UserController {
      * @param request 参数
      * @return
      */
+    @Log(desc = "删除用户", type = LogType.REMOVE)
     @PostMapping("/remove")
-    public Result<Void> remove(@RequestBody @Validated RemoveRequest request) {
-        userService.removeById(request.getId());
-        return Result.success();
+    public Result<User> remove(@RequestBody @Validated RemoveRequest request) {
+        User user = userService.getById(request.getId());
+        if (null != user) {
+            userService.removeById(request.getId());
+        }
+
+        return Result.success(user);
     }
 }

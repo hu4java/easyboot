@@ -1,6 +1,8 @@
 package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hu4java.base.annotation.Log;
+import com.hu4java.base.enums.LogType;
 import com.hu4java.base.enums.Status;
 import com.hu4java.base.request.RemoveRequest;
 import com.hu4java.base.request.ViewRequest;
@@ -71,6 +73,7 @@ public class DictController {
 	 * @param request	参数
 	 * @return
 	 */
+	@Log(desc = "保存字典", type = LogType.SAVE)
 	@PostMapping("/save")
 	public Result<Void> save(@RequestBody @Validated DictFormRequest request) {
 		Dict exist = dictService.getByType(request.getType());
@@ -88,6 +91,7 @@ public class DictController {
 	 * @param request 参数
 	 * @return
 	 */
+	@Log(desc = "更新字典", type = LogType.UPDATE)
 	@PostMapping("/update")
 	public Result<Void> update(@RequestBody @Validated DictUpdateRequest request) {
 		Dict exist = dictService.getByType(request.getType());
@@ -100,13 +104,17 @@ public class DictController {
 	}
 
 	/**
-	 * 删除
+	 * 删除字典
 	 * @param request	参数
 	 * @return
 	 */
+	@Log(desc = "删除字典", type = LogType.REMOVE)
 	@PostMapping("/remove")
-	public Result<Void> remove(@RequestBody @Validated RemoveRequest request) {
-		dictService.removeById(request.getId());
-		return Result.success();
+	public Result<Dict> remove(@RequestBody @Validated RemoveRequest request) {
+		Dict dict = dictService.getById(request.getId());
+		if (null != dict) {
+			dictService.removeById(request.getId());
+		}
+		return Result.success(dict);
 	}
 }
