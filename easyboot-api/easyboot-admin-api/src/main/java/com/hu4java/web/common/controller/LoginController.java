@@ -1,19 +1,21 @@
 package com.hu4java.web.common.controller;
 
-import com.hu4java.base.annotation.Log;
 import com.hu4java.base.annotation.NoAuth;
 import com.hu4java.base.result.Result;
 import com.hu4java.base.result.ResultCode;
+import com.hu4java.util.ShiroUtils;
 import com.hu4java.web.common.request.LoginRequest;
 import com.hu4java.web.common.response.TokenResponse;
-import com.hu4java.util.ShiroUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 
@@ -30,7 +32,6 @@ public class LoginController {
      * @param request   登录数据
      * @return          Token
      */
-    @Log
     @NoAuth
     @PostMapping("/login")
     public Result<TokenResponse> login(@RequestBody @Validated LoginRequest request) {

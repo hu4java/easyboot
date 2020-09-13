@@ -16,7 +16,6 @@
     <modules>
         <module>easyboot-system</module>
         <module>easyboot-generate</module>
-        <module>easyboot-log</module>
     </modules>
 
     <properties>
