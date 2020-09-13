@@ -82,6 +82,9 @@
             <id>prod</id>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
+                <db.url>jdbc:mysql:localhost/easyboot</db.url>
+                <db.username>root</db.username>
+                <db.password>root</db.password>
             </properties>
         </profile>
     </profiles>
