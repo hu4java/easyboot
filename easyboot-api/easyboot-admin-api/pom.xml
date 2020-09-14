@@ -24,11 +24,6 @@
         </dependency>
         <dependency>
             <groupId>com.hu4java</groupId>
-            <artifactId>easyboot-common-manager</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hu4java</groupId>
             <artifactId>easyboot-system</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -36,6 +31,10 @@
             <groupId>com.hu4java</groupId>
             <artifactId>easyboot-generate</artifactId>
             <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -47,6 +46,11 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

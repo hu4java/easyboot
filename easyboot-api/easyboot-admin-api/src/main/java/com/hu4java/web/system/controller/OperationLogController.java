@@ -2,11 +2,15 @@ package com.hu4java.web.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.base.request.ViewRequest;
+import com.hu4java.base.response.PageResponse;
 import com.hu4java.base.result.Result;
 import com.hu4java.system.entity.OperationLog;
 import com.hu4java.system.service.OperationLogService;
 import com.hu4java.web.system.request.OperationLogTableRequest;
+import com.hu4java.web.system.response.OperateLogTableResponse;
 import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.metadata.Type;
+import ma.glasnost.orika.metadata.TypeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +31,12 @@ public class OperationLogController {
 	private MapperFacade mapperFacade;
 
 	@GetMapping("/list")
-	public Result<Page<OperationLog>> list(OperationLogTableRequest request) {
+	public Result<PageResponse<OperateLogTableResponse>> list(OperationLogTableRequest request) {
 		Page<OperationLog> page = operationLogService.listByPage(request.toPage(), request.queryWrapper());
-		return Result.success(page);
+		Type<Page<OperationLog>> fromType = new TypeBuilder<Page<OperationLog>>(){}.build();
+		Type<PageResponse<OperateLogTableResponse>> toType = new TypeBuilder<PageResponse<OperateLogTableResponse>>(){}.build();
+		PageResponse<OperateLogTableResponse> response = mapperFacade.map(page, fromType, toType);
+		return Result.success(response);
 	}
 
 	@GetMapping("/detail")

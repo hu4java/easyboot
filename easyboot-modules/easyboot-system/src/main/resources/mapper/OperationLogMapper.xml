@@ -21,8 +21,20 @@
         <result property="location" column="location"/>
         <!--方法-->
         <result property="method" column="method"/>
-        <!--请求方法-->
+        <!--请求地址-->
+        <result property="requestUrl" column="request_url"/>
+		<!--请求方法-->
         <result property="requestMethod" column="request_method"/>
+		<!--浏览器-->
+        <result property="browser" column="browser"/>
+        <!--操作时间-->
+        <result property="operateTime" column="operate_time"/>
+        <!--操作人-->
+        <result property="operateUser" column="operate_user"/>
+        <!--操作人ID-->
+        <result property="operateUserId" column="operate_user_id"/>
+        <!--耗时-->
+        <result property="time" column="time"/>
     </resultMap>
     <sql id="allColumnSql">
 		t.id,
@@ -41,7 +53,13 @@
 		t.error_msg,
 		t.location,
 		t.method,
-		t.request_method
+		t.request_url,
+		t.request_method,
+		t.browser,
+		t.operate_time,
+		t.operate_user,
+		t.operate_user_id,
+		t.time
 
 	</sql>
 </mapper>

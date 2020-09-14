@@ -79,5 +79,10 @@
             <artifactId>easyboot-base</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.hu4java</groupId>
+            <artifactId>easyboot-common-manager</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

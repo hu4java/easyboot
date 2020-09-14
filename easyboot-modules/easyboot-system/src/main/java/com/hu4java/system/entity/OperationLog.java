@@ -51,7 +51,13 @@ public class OperationLog extends BaseEntity {
 	/** 方法*/
 	private String method;
 
+	/** 请求地址*/
+	private String requestUrl;
 	/** 请求方法*/
 	private String requestMethod;
+	/** 浏览器*/
+	private String browser;
 
+	/** 耗时*/
+	private Long time;
 }

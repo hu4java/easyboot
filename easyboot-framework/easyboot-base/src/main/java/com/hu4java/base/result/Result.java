@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * 返回数据封装类
@@ -28,6 +27,7 @@ public class Result<T> implements Serializable {
     public Result(ResultCode resultCode) {
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
+        this.success = resultCode == ResultCode.SUCCESS;
     }
 
     public Result(ResultCode resultCode, T data) {
@@ -55,7 +55,4 @@ public class Result<T> implements Serializable {
         return new Result<>(code, message, null, false);
     }
 
-    public boolean isSuccess() {
-        return Objects.equals(ResultCode.SUCCESS.getCode(), code);
-    }
 }

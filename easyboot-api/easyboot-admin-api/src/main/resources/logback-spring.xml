@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration  scan="true" scanPeriod="60 seconds" debug="false">
-    <springProperty name="LOG_PATH" source="logging.file.path" defaultValue="/home/easyboot/logs" />
+    <springProperty name="LOG_PATH" source="logging.file.path" defaultValue="logs" />
     <property name="app.name" value="easyboot-admin-api" />
     <contextName>${app.name}</contextName>
     <!-- 日志输出路径 -->
