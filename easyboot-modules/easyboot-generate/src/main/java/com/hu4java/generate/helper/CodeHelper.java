@@ -3,7 +3,7 @@ package com.hu4java.generate.helper;
 import com.hu4java.common.core.constant.DateConstants;
 import com.hu4java.generate.request.GenerateFieldRequest;
 import com.hu4java.generate.request.GenerateRequest;
-import com.hu4java.util.StringUtils;
+import com.hu4java.util.StrUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +43,7 @@ public class CodeHelper {
         for (GenerateFieldRequest field : fieldList) {
             sb.append("\t/** ").append(field.getColumnComment()).append("*/\n");
             // 字段名和列名是否相同
-            String originalField = StringUtils.underlineToCamel(field.getColumnName(), false);
+            String originalField = StrUtils.underlineToCamel(field.getColumnName(), false);
             if (!Objects.equals(originalField, field.getFieldName())) {
                 sb.append("\t@TableField(value = \"").append(field.getColumnName()).append("\")\n");
             }

@@ -1,7 +1,7 @@
 package com.hu4java.web.generate.response;
 
 import com.hu4java.base.response.BaseResponse;
-import com.hu4java.util.StringUtils;
+import com.hu4java.util.StrUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +33,6 @@ public class TableInfoResponse extends BaseResponse {
         if (null == tableName) {
             return null;
         }
-        return StringUtils.underlineToCamel(tableName, true);
+        return StrUtils.underlineToCamel(tableName, true);
     }
 }

@@ -3,7 +3,7 @@ package com.hu4java.util;
 /**
  * @author chenzhenhu
  */
-public class StringUtils {
+public class StrUtils {
 
     private static final char UNDERLINE = '_';
 

@@ -2,7 +2,7 @@ package com.hu4java.web.generate.response;
 
 import com.hu4java.base.response.BaseResponse;
 import com.hu4java.generate.helper.CodeHelper;
-import com.hu4java.util.StringUtils;
+import com.hu4java.util.StrUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +28,7 @@ public class ColumnListResponse extends BaseResponse {
         if (null == columnName) {
             return null;
         }
-        return StringUtils.underlineToCamel(columnName, false);
+        return StrUtils.underlineToCamel(columnName, false);
     }
 
     public String getJavaType() {
