@@ -13,6 +13,7 @@ import com.hu4java.web.system.request.DictItemQueryRequest;
 import com.hu4java.web.system.request.DictItemTableRequest;
 import com.hu4java.web.system.request.DictItemUpdateRequest;
 import ma.glasnost.orika.MapperFacade;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,7 @@ public class DictItemController {
 	 * @return
 	 */
 	@GetMapping("/list")
+	@RequiresPermissions("sys:dictItem:view")
 	public Result<Page<DictItem>> list(DictItemTableRequest request) {
 		Page<DictItem> page = dictItemService.listByPage(request.toPage(), request.queryWrapper());
 		return Result.success(page);
@@ -62,6 +64,7 @@ public class DictItemController {
 	 * @return
 	 */
 	@GetMapping("/detail")
+	@RequiresPermissions("sys:dictItem:view")
 	public Result<DictItem> detail(@Validated ViewRequest request) {
 		DictItem dictItem = dictItemService.getById(request.getId());
 		return Result.success(dictItem);
@@ -72,8 +75,9 @@ public class DictItemController {
 	 * @param request	参数
 	 * @return
 	 */
-	@Log(desc = "保存数据", type = LogType.SAVE)
 	@PostMapping("/save")
+	@Log(desc = "保存数据", type = LogType.SAVE)
+	@RequiresPermissions("sys:dictItem:save")
 	public Result<Void> save(@RequestBody @Validated DictItemFormRequest request) {
 		DictItem exist = dictItemService.getByTitleAndDictType(request.getTitle(), request.getDictType());
 		if (null != exist) {
@@ -90,8 +94,9 @@ public class DictItemController {
 	 * @param request 参数
 	 * @return
 	 */
-	@Log(desc = "更新数据", type = LogType.UPDATE)
 	@PostMapping("/update")
+	@Log(desc = "更新数据", type = LogType.UPDATE)
+	@RequiresPermissions("sys:dictItem:update")
 	public Result<Void> update(@RequestBody @Validated DictItemUpdateRequest request) {
 		DictItem exist = dictItemService.getByTitleAndDictType(request.getTitle(), request.getDictType());
 		if (null != exist && !exist.getId().equals(request.getId())) {
@@ -107,8 +112,9 @@ public class DictItemController {
 	 * @param request	参数
 	 * @return
 	 */
-	@Log(desc = "删除数据", type = LogType.REMOVE)
 	@PostMapping("/remove")
+	@Log(desc = "删除数据", type = LogType.REMOVE)
+	@RequiresPermissions("sys:dictItem:remove")
 	public Result<DictItem> remove(@RequestBody @Validated RemoveRequest request) {
 		DictItem dictItem = dictItemService.getById(request.getId());
 		if (null != dictItem) {

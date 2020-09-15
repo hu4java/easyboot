@@ -11,6 +11,7 @@ import com.hu4java.web.system.response.OperateLogTableResponse;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.metadata.Type;
 import ma.glasnost.orika.metadata.TypeBuilder;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class OperationLogController {
 	private MapperFacade mapperFacade;
 
 	@GetMapping("/list")
+	@RequiresPermissions("sys:operationLog:view")
 	public Result<PageResponse<OperateLogTableResponse>> list(OperationLogTableRequest request) {
 		Page<OperationLog> page = operationLogService.listByPage(request.toPage(), request.queryWrapper());
 		Type<Page<OperationLog>> fromType = new TypeBuilder<Page<OperationLog>>(){}.build();
@@ -40,6 +42,7 @@ public class OperationLogController {
 	}
 
 	@GetMapping("/detail")
+	@RequiresPermissions("sys:operationLog:view")
 	public Result<OperationLog> detail(@Validated ViewRequest request) {
 		OperationLog log = operationLogService.getById(request.getId());
 		return Result.success(log);

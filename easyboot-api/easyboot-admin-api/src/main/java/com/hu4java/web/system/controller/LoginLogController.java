@@ -5,6 +5,7 @@ import com.hu4java.base.result.Result;
 import com.hu4java.system.entity.LoginLog;
 import com.hu4java.system.service.LoginLogService;
 import com.hu4java.web.system.request.LoginLogTableRequest;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class LoginLogController {
 	private LoginLogService loginLogService;
 
 	@GetMapping("/list")
+	@RequiresPermissions("sys:loginLog:view")
 	public Result<Page<LoginLog>> list(LoginLogTableRequest request) {
 		Page<LoginLog> page = loginLogService.listByPage(request.toPage(), request.queryWrapper());
 		return Result.success(page);

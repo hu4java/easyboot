@@ -15,6 +15,7 @@ import com.hu4java.web.system.request.MenuUpdateRequest;
 import com.hu4java.web.system.response.MenuTreeTableResponse;
 import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,7 @@ public class MenuController {
      * @return          菜单数据
      */
     @GetMapping("/list")
+    @RequiresPermissions("sys:menu:view")
     public Result<List<MenuTreeTableResponse>> list(MenuListRequest request) {
         List<Menu> menuList;
         if (StringUtils.isNotBlank(request.getTitle())) {
@@ -58,6 +60,7 @@ public class MenuController {
      * @return
      */
     @GetMapping("/detail")
+    @RequiresPermissions("sys:menu:view")
     public Result<MenuUpdateRequest> detail(@Validated ViewRequest request) {
         Menu menu = menuService.getById(request.getId());
         if (null == menu) {
@@ -72,8 +75,9 @@ public class MenuController {
      * @param request 保存数据
      * @return
      */
-    @Log(desc = "保存菜单", type = LogType.SAVE)
     @PostMapping("/save")
+    @Log(desc = "保存菜单", type = LogType.SAVE)
+    @RequiresPermissions("sys:menu:save")
     public Result<Void> save(@RequestBody @Validated MenuSaveRequest request) {
         if (!request.getType().equals(MenuType.BUTTON.getType())) {
             Menu exist = menuService.getByRouteName(request.getRouteName());
@@ -91,8 +95,9 @@ public class MenuController {
      * @param request 更新数据
      * @return
      */
-    @Log(desc = "更新菜单", type = LogType.UPDATE)
     @PostMapping("/update")
+    @Log(desc = "更新菜单", type = LogType.UPDATE)
+    @RequiresPermissions("sys:menu:update")
     public Result<Void> update(@RequestBody @Validated MenuUpdateRequest request) {
         if (!request.getType().equals(MenuType.BUTTON.getType())) {
             Menu exist = menuService.getByRouteName(request.getRouteName());
@@ -111,8 +116,9 @@ public class MenuController {
      * @param request   数据id
      * @return
      */
-    @Log(desc = "删除菜单", type = LogType.REMOVE)
     @PostMapping("/remove")
+    @Log(desc = "删除菜单", type = LogType.REMOVE)
+    @RequiresPermissions("sys:menu:remove")
     public Result<Menu> remove(@RequestBody @Validated RemoveRequest request) {
         List<Menu> menuList = menuService.listByPid(request.getId());
         if (menuList.size() > 0) {

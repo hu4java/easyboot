@@ -14,6 +14,7 @@ import com.hu4java.web.system.request.DeptUpdateRequest;
 import com.hu4java.web.system.response.DeptTreeTableResponse;
 import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,7 @@ public class DeptController {
      * @return
      */
     @GetMapping("/list")
+    @RequiresPermissions("sys:dept:view")
     public Result<List<DeptTreeTableResponse>> list(DeptListRequest request) {
         List<Dept> deptList;
         if (StringUtils.isNotBlank(request.getName())) {
@@ -58,6 +60,7 @@ public class DeptController {
      * @return
      */
     @GetMapping("/detail")
+    @RequiresPermissions("sys:dept:view")
     public Result<DeptUpdateRequest> detail(@Validated ViewRequest request) {
         Dept dept = deptService.getById(request.getId());
         if (null == dept) {
@@ -72,8 +75,9 @@ public class DeptController {
      * @param request   保存参数
      * @return
      */
-    @Log(desc = "保存部门", type = LogType.SAVE)
     @PostMapping("/save")
+    @Log(desc = "保存部门", type = LogType.SAVE)
+    @RequiresPermissions("sys:dept:save")
     public Result<Void> save(@RequestBody @Validated DeptFormRequest request) {
         Dept dept = mapperFacade.map(request, Dept.class);
         deptService.save(dept);
@@ -85,8 +89,9 @@ public class DeptController {
      * @param request   更新参数
      * @return
      */
-    @Log(desc = "更新部门", type = LogType.UPDATE)
     @PostMapping("/update")
+    @Log(desc = "更新部门", type = LogType.UPDATE)
+    @RequiresPermissions("sys:dept:update")
     public Result<Void> update(@RequestBody @Validated DeptUpdateRequest request) {
         Dept dept = mapperFacade.map(request, Dept.class);
         deptService.update(dept);
@@ -98,8 +103,9 @@ public class DeptController {
      * @param request   删除参数
      * @return
      */
-    @Log(desc = "删除部门", type = LogType.REMOVE)
     @PostMapping("/remove")
+    @Log(desc = "删除部门", type = LogType.REMOVE)
+    @RequiresPermissions("sys:dept:remove")
     public Result<Dept> remove(@RequestBody @Validated RemoveRequest request) {
         List<Dept> deptList = deptService.listByPid(request.getId());
         if (deptList.size() > 0) {

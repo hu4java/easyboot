@@ -13,6 +13,7 @@ import com.hu4java.web.system.request.DictFormRequest;
 import com.hu4java.web.system.request.DictTableRequest;
 import com.hu4java.web.system.request.DictUpdateRequest;
 import ma.glasnost.orika.MapperFacade;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,7 @@ public class DictController {
 	 * @return
 	 */
 	@GetMapping("/list")
+	@RequiresPermissions("sys:dict:view")
 	public Result<Page<Dict>> list(DictTableRequest request) {
 		Page<Dict> page = dictService.listByPage(request.toPage(), request.queryWrapper());
 		return Result.success(page);
@@ -63,6 +65,7 @@ public class DictController {
 	 * @return
 	 */
 	@GetMapping("/detail")
+	@RequiresPermissions("sys:dict:view")
 	public Result<Dict> detail(@Validated ViewRequest request) {
 		Dict dict = dictService.getById(request.getId());
 		return Result.success(dict);
@@ -73,8 +76,9 @@ public class DictController {
 	 * @param request	参数
 	 * @return
 	 */
-	@Log(desc = "保存字典", type = LogType.SAVE)
 	@PostMapping("/save")
+	@Log(desc = "保存字典", type = LogType.SAVE)
+	@RequiresPermissions("sys:dict:save")
 	public Result<Void> save(@RequestBody @Validated DictFormRequest request) {
 		Dict exist = dictService.getByType(request.getType());
 		if (null != exist) {
@@ -91,8 +95,9 @@ public class DictController {
 	 * @param request 参数
 	 * @return
 	 */
-	@Log(desc = "更新字典", type = LogType.UPDATE)
 	@PostMapping("/update")
+	@Log(desc = "更新字典", type = LogType.UPDATE)
+	@RequiresPermissions("sys:dict:update")
 	public Result<Void> update(@RequestBody @Validated DictUpdateRequest request) {
 		Dict exist = dictService.getByType(request.getType());
 		if (null != exist && !exist.getId().equals(request.getId())) {
@@ -108,8 +113,9 @@ public class DictController {
 	 * @param request	参数
 	 * @return
 	 */
-	@Log(desc = "删除字典", type = LogType.REMOVE)
 	@PostMapping("/remove")
+	@Log(desc = "删除字典", type = LogType.REMOVE)
+	@RequiresPermissions("sys:dict:remove")
 	public Result<Dict> remove(@RequestBody @Validated RemoveRequest request) {
 		Dict dict = dictService.getById(request.getId());
 		if (null != dict) {

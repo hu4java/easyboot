@@ -16,6 +16,7 @@ import com.hu4java.web.system.request.RoleListRequest;
 import com.hu4java.web.system.request.RoleUpdateRequest;
 import com.hu4java.web.system.response.RoleUpdateResponse;
 import ma.glasnost.orika.MapperFacade;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,7 @@ public class RoleController {
      * @return
      */
     @GetMapping("/list")
+    @RequiresPermissions("sys:role:view")
     public Result<Page<Role>> list(RoleListRequest request) {
         Page<Role> page = roleService.listByPage(request.toPage(), request.queryWrapper());
         return Result.success(page);
@@ -57,6 +59,7 @@ public class RoleController {
      * @return
      */
     @GetMapping("/detail")
+    @RequiresPermissions("sys:role:view")
     public Result<RoleUpdateResponse> detail(@Validated ViewRequest request) {
         Role role = roleService.getById(request.getId());
         if (null == role) {
@@ -86,8 +89,9 @@ public class RoleController {
      * @param request   角色数据
      * @return
      */
-    @Log(desc = "保存角色", type = LogType.SAVE)
     @PostMapping("/save")
+    @Log(desc = "保存角色", type = LogType.SAVE)
+    @RequiresPermissions("sys:role:save")
     public Result<Void> save(@RequestBody @Validated RoleFormRequest request) {
         Role exist = roleService.getByCode(request.getCode());
         if (null != exist) {
@@ -103,8 +107,9 @@ public class RoleController {
      * @param request   角色数据
      * @return
      */
-    @Log(desc = "更新角色", type = LogType.UPDATE)
     @PostMapping("/update")
+    @Log(desc = "更新角色", type = LogType.UPDATE)
+    @RequiresPermissions("sys:role:update")
     public Result<Void> update(@RequestBody @Validated RoleUpdateRequest request) {
         Role exist = roleService.getById(request.getId());
         if (null == exist) {
@@ -124,8 +129,9 @@ public class RoleController {
      * @param request   角色ID
      * @return
      */
-    @Log(desc = "删除角色", type = LogType.REMOVE)
     @PostMapping("/remove")
+    @Log(desc = "删除角色", type = LogType.REMOVE)
+    @RequiresPermissions("sys:role:remove")
     public Result<Role> remove(@RequestBody @Validated RemoveRequest request) {
         Role role = roleService.getById(request.getId());
         if (null != role) {

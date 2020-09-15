@@ -25,6 +25,7 @@ import com.hu4java.web.system.response.UserListResponse;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.metadata.Type;
 import ma.glasnost.orika.metadata.TypeBuilder;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +58,7 @@ public class UserController {
      * @return          用户分页列表
      */
     @GetMapping("/list")
+    @RequiresPermissions("sys:user:view")
     public Result<PageResponse<UserListResponse>> list(UserListRequest request) {
 
         Page<User> page = request.toPage();
@@ -75,6 +77,7 @@ public class UserController {
      * @return          表单数据
      */
     @GetMapping("/detail")
+    @RequiresPermissions("sys:user:view")
     public Result<UserUpdateRequest> detail(@Validated ViewRequest request) {
         User user = userService.getById(request.getId());
         if (null == user) {
@@ -96,8 +99,9 @@ public class UserController {
      * @param request   参数
      * @return
      */
-    @Log(desc = "保存用户", type = LogType.SAVE)
     @PostMapping("/save")
+    @Log(desc = "保存用户", type = LogType.SAVE)
+    @RequiresPermissions("sys:user:save")
     public Result<Void> save(@RequestBody @Validated UserSaveRequest request) {
         User exist = userService.getByMobile(request.getMobile());
         if (null != exist) {
@@ -117,8 +121,9 @@ public class UserController {
      * @param request   参数
      * @return
      */
-    @Log(desc = "更新用户", type = LogType.UPDATE)
     @PostMapping("/update")
+    @Log(desc = "更新用户", type = LogType.UPDATE)
+    @RequiresPermissions("sys:user:update")
     public Result<Void> update(@RequestBody @Validated UserUpdateRequest request) {
         User exist = userService.getByMobile(request.getMobile());
         if (null != exist && !Objects.equals(exist.getId(), request.getId())) {
@@ -138,8 +143,9 @@ public class UserController {
      * @param request   参数
      * @return
      */
-    @Log(desc = "重置密码", type = LogType.UPDATE)
     @PostMapping("/resetPassword")
+    @Log(desc = "重置密码", type = LogType.UPDATE)
+    @RequiresPermissions("sys:user:update")
     public Result<Void> resetPassword(@RequestBody @Validated UserResetPasswordRequest request) {
         User exist = userService.getById(request.getId());
         if (null == exist) {
@@ -165,8 +171,9 @@ public class UserController {
      * @param request 参数
      * @return
      */
-    @Log(desc = "删除用户", type = LogType.REMOVE)
     @PostMapping("/remove")
+    @Log(desc = "删除用户", type = LogType.REMOVE)
+    @RequiresPermissions("sys:user:remove")
     public Result<User> remove(@RequestBody @Validated RemoveRequest request) {
         User user = userService.getById(request.getId());
         if (null != user) {

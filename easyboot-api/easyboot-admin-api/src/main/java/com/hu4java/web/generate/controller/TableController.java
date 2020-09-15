@@ -11,6 +11,7 @@ import com.hu4java.generate.service.TableService;
 import com.hu4java.web.generate.response.ColumnListResponse;
 import com.hu4java.web.generate.response.TableInfoResponse;
 import ma.glasnost.orika.MapperFacade;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,12 +36,14 @@ public class TableController {
     private MapperFacade mapperFacade;
 
     @GetMapping("/list")
+    @RequiresPermissions("tools:table:view")
     public Result<Page<Table>> list(Page<Table> page, TableCondition condition) {
         page = tableService.listByPage(page, condition);
         return Result.success(page);
     }
 
     @GetMapping("/info")
+    @RequiresPermissions("tools:table:view")
     public Result<TableInfoResponse> info(@Validated TableInfoRequest request) {
 
         Table table = tableService.getByTableName(request.getTableName());

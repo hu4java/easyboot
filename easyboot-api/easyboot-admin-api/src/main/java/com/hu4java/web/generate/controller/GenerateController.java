@@ -5,6 +5,7 @@ import com.hu4java.generate.helper.XmlHelper;
 import com.hu4java.generate.request.GenerateRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.dom4j.Document;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
@@ -37,6 +38,7 @@ public class GenerateController {
      * @throws Exception
      */
     @PostMapping("/code")
+    @RequiresPermissions("tools:generate:code")
     public void generate(@RequestBody @Validated GenerateRequest request, HttpServletResponse response) throws Exception {
 
         // 构建相关代码
