@@ -36,14 +36,14 @@ public class TableController {
     private MapperFacade mapperFacade;
 
     @GetMapping("/list")
-    @RequiresPermissions("tools:table:view")
+    @RequiresPermissions("tools:generate:view")
     public Result<Page<Table>> list(Page<Table> page, TableCondition condition) {
         page = tableService.listByPage(page, condition);
         return Result.success(page);
     }
 
     @GetMapping("/info")
-    @RequiresPermissions("tools:table:view")
+    @RequiresPermissions("tools:generate:view")
     public Result<TableInfoResponse> info(@Validated TableInfoRequest request) {
 
         Table table = tableService.getByTableName(request.getTableName());

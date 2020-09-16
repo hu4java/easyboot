@@ -3,12 +3,14 @@ package com.hu4java.web.generate.controller;
 import com.hu4java.generate.helper.CodeHelper;
 import com.hu4java.generate.helper.XmlHelper;
 import com.hu4java.generate.request.GenerateRequest;
+import com.hu4java.generate.service.GenerateService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.dom4j.Document;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +32,9 @@ import java.util.zip.ZipOutputStream;
 @RestController
 @RequestMapping("/generate")
 public class GenerateController {
+
+    @Autowired
+    private GenerateService generateService;
 
     /**
      * 生成代码
@@ -66,12 +71,14 @@ public class GenerateController {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ZipOutputStream zipOutputStream = new ZipOutputStream(os);
 
-        putFile(zipOutputStream, entity, entityJavaPath);
-        putFile(zipOutputStream, condition, conditionJavaPath);
-        putFile(zipOutputStream, mapper, mapperJavaPath);
-        putFile(zipOutputStream, service, serviceJavaPath);
-        putFile(zipOutputStream, serviceImpl, serviceImplJavaPath);
-        putFile(zipOutputStream, controller, controllerJavaPath);
+        generateService.generate(request, zipOutputStream);
+
+//        putFile(zipOutputStream, entity, entityJavaPath);
+//        putFile(zipOutputStream, condition, conditionJavaPath);
+//        putFile(zipOutputStream, mapper, mapperJavaPath);
+//        putFile(zipOutputStream, service, serviceJavaPath);
+//        putFile(zipOutputStream, serviceImpl, serviceImplJavaPath);
+//        putFile(zipOutputStream, controller, controllerJavaPath);
         putXmlFile(zipOutputStream, document, xmlPath);
         zipOutputStream.flush();
         zipOutputStream.close();
