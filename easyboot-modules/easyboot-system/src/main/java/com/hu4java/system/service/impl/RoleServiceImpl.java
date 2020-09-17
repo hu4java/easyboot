@@ -46,6 +46,11 @@ public class RoleServiceImpl extends AbstractServiceImpl<Role, RoleMapper> imple
         return mapper.selectByCode(code);
     }
 
+    @Override
+    public List<Role> listByUserId(Long userId) {
+        return mapper.selectByUserId(userId);
+    }
+
 
     /**
      * 保存角色菜单关联表

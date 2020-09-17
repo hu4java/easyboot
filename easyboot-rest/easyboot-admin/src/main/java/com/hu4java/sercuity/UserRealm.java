@@ -5,6 +5,8 @@ import com.hu4java.base.result.ResultCode;
 import com.hu4java.system.entity.Menu;
 import com.hu4java.system.entity.Role;
 import com.hu4java.system.entity.User;
+import com.hu4java.system.service.MenuService;
+import com.hu4java.system.service.RoleService;
 import com.hu4java.system.service.UserService;
 import com.hu4java.util.ShiroUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.util.CollectionUtils;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,19 +34,31 @@ public class UserRealm extends AuthorizingRealm {
     @Lazy
     @Autowired
     private UserService userService;
+    @Lazy
+    @Autowired
+    private RoleService roleService;
+    @Lazy
+    @Autowired
+    private MenuService menuService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         User currentUser = ShiroUtils.currentLogin();
-        if (!CollectionUtils.isEmpty(currentUser.getRoleList())) {
-            Set<String> roles = currentUser.getRoleList().stream().filter(role -> Objects.equals(role.getStatus(), Status.ENABLE.getStatus()))
+
+        List<Role> roleList = roleService.listByUserId(currentUser.getId());
+        List<Menu> menuList = menuService.listByUserId(currentUser.getId());
+
+
+
+        if (!CollectionUtils.isEmpty(roleList)) {
+            Set<String> roles = roleList.stream().filter(role -> Objects.equals(role.getStatus(), Status.ENABLE.getStatus()))
                     .map(Role::getCode).collect(Collectors.toSet());
             simpleAuthorizationInfo.setRoles(roles);
         }
 
-        if (!CollectionUtils.isEmpty(currentUser.getMenuList())) {
-            Set<String> permissions = currentUser.getMenuList().stream()
+        if (!CollectionUtils.isEmpty(menuList)) {
+            Set<String> permissions = menuList.stream()
                     .filter(menu -> Objects.equals(menu.getStatus(), Status.ENABLE.getStatus()) && StringUtils.isNotBlank(menu.getCode()))
                     .map(Menu::getCode).collect(Collectors.toSet());
             simpleAuthorizationInfo.setStringPermissions(permissions);

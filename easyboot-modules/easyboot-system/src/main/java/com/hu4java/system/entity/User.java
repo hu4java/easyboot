@@ -47,9 +47,5 @@ public class User extends BaseEntity {
     private LocalDate contractExpireDate;
 
     @TableField(exist = false)
-    private List<Role> roleList;
-    @TableField(exist = false)
-    private List<Menu> menuList;
-    @TableField(exist = false)
     private List<Dept> deptList;
 }

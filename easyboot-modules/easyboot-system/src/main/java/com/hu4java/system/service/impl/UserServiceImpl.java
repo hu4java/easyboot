@@ -4,10 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hu4java.base.service.impl.AbstractServiceImpl;
 import com.hu4java.common.core.constant.Constants;
 import com.hu4java.system.condition.UserCondition;
-import com.hu4java.system.entity.*;
+import com.hu4java.system.entity.Dept;
+import com.hu4java.system.entity.User;
+import com.hu4java.system.entity.UserDept;
+import com.hu4java.system.entity.UserRole;
 import com.hu4java.system.mapper.DeptMapper;
-import com.hu4java.system.mapper.MenuMapper;
-import com.hu4java.system.mapper.RoleMapper;
 import com.hu4java.system.mapper.UserMapper;
 import com.hu4java.system.service.UserDeptService;
 import com.hu4java.system.service.UserRoleService;
@@ -27,10 +28,6 @@ import java.util.List;
 public class UserServiceImpl extends AbstractServiceImpl<User, UserMapper> implements UserService {
 
     @Autowired
-    private RoleMapper roleMapper;
-    @Autowired
-    private MenuMapper menuMapper;
-    @Autowired
     private DeptMapper deptMapper;
     @Autowired
     private UserRoleService userRoleService;
@@ -44,13 +41,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserMapper> imple
         if (null == user) {
             return null;
         }
-
-        List<Role> roleList = roleMapper.selectByUserId(user.getId());
-        List<Menu> menuList = menuMapper.selectByUserId(user.getId());
         List<Dept> deptList = deptMapper.selectByUserId(user.getId());
-
-        user.setRoleList(roleList);
-        user.setMenuList(menuList);
         user.setDeptList(deptList);
         return user;
     }

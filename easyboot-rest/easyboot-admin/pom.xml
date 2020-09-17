@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>easyboot-api</artifactId>
+        <artifactId>easyboot-rest</artifactId>
         <groupId>com.hu4java</groupId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>easyboot-admin-api</artifactId>
+    <artifactId>easyboot-admin</artifactId>
     <version>1.0.0</version>
-    <name>easyboot-admin-api</name>
+    <name>easyboot-admin</name>
     <description>EasyBoot Admin Api</description>
 
     <properties>

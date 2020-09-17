@@ -21,7 +21,7 @@
         <module>easyboot-framework</module>
         <module>easyboot-common</module>
         <module>easyboot-modules</module>
-        <module>easyboot-api</module>
+        <module>easyboot-rest</module>
     </modules>
 
     <properties>

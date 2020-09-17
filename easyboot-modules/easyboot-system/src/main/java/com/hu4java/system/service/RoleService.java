@@ -33,4 +33,11 @@ public interface RoleService extends Service<Role> {
      * @return      角色数据
      */
     Role getByCode(String code);
+
+    /**
+     * 根据用户id查询
+     * @param userId    用户id
+     * @return
+     */
+    List<Role> listByUserId(Long userId);
 }

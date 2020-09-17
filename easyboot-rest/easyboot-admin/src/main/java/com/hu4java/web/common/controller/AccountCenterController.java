@@ -9,6 +9,7 @@ import com.hu4java.system.entity.Role;
 import com.hu4java.system.entity.User;
 import com.hu4java.system.enums.MenuType;
 import com.hu4java.system.service.MenuService;
+import com.hu4java.system.service.RoleService;
 import com.hu4java.system.service.UserService;
 import com.hu4java.util.RandomUtils;
 import com.hu4java.util.ShiroUtils;
@@ -39,6 +40,8 @@ public class AccountCenterController {
     @Autowired
     private UserService userService;
     @Autowired
+    private RoleService roleService;
+    @Autowired
     private MenuService menuService;
     @Autowired
     private MapperFacade mapperFacade;
@@ -51,10 +54,12 @@ public class AccountCenterController {
     public Result<UserInfoResponse> info() {
         User current = ShiroUtils.currentLogin();
         UserInfoResponse response = mapperFacade.map(current, UserInfoResponse.class);
-        List<String> roleList = current.getRoleList().stream().filter(role -> role.getStatus().equals(Status.ENABLE.getStatus()))
+        List<Role> roleList = roleService.listByUserId(current.getId());
+        List<Menu> menuList = menuService.listByUserId(current.getId());
+        List<String> roles = roleList.stream().filter(role -> role.getStatus().equals(Status.ENABLE.getStatus()))
                 .map(Role::getCode).collect(Collectors.toList());
-        response.setRoles(roleList);
-        List<String> permissions = current.getMenuList().stream()
+        response.setRoles(roles);
+        List<String> permissions = menuList.stream()
                 .filter(menu -> menu.getStatus().equals(Status.ENABLE.getStatus()) && StringUtils.isNotBlank(menu.getCode()))
                 .map(Menu::getCode).collect(Collectors.toList());
         response.setPermissions(permissions);
