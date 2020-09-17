@@ -2,12 +2,12 @@ package com.hu4java.generate.service.impl;
 
 import com.hu4java.generate.helper.CodeHelper;
 import com.hu4java.generate.request.GenerateRequest;
-import com.hu4java.generate.service.GenerateService;
+import com.hu4java.generate.service.GenerateCodeService;
 
 /**
  * @author chenzhenhu
  */
-public class GenerateMapperImpl implements GenerateService {
+public class GenerateMapperCodeImpl implements GenerateCodeService {
 
 
     @Override
@@ -27,5 +27,10 @@ public class GenerateMapperImpl implements GenerateService {
         sb.append("public interface ").append(request.getEntityName()).append("Mapper extends BaseMapper<")
                 .append(request.getEntityName()).append("> {\n\n}");
         return sb.toString();
+    }
+
+    @Override
+    public String path(GenerateRequest request) {
+        return CodeHelper.javaPath(request.getJavaPackage()) + "/mapper/" + request.getEntityName() + "Mapper.java";
     }
 }

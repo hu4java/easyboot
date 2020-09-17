@@ -10,10 +10,9 @@ import java.util.zip.ZipOutputStream;
 public interface GenerateService {
 
     /**
-     * 代码
+     * 生成代码
      * @param request
-     * @param outputStream
-     * @return
+     * @param zipOutputStream
      */
-    void generate(GenerateRequest request, ZipOutputStream outputStream);
+    void generate(GenerateRequest request, ZipOutputStream zipOutputStream) throws Exception;
 }

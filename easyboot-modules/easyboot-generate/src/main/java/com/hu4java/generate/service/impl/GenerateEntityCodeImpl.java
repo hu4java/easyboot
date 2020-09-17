@@ -3,7 +3,7 @@ package com.hu4java.generate.service.impl;
 import com.hu4java.generate.helper.CodeHelper;
 import com.hu4java.generate.request.GenerateFieldRequest;
 import com.hu4java.generate.request.GenerateRequest;
-import com.hu4java.generate.service.GenerateService;
+import com.hu4java.generate.service.GenerateCodeService;
 import com.hu4java.util.StrUtils;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * @author chenzhenhu
  */
-public class GenerateEntityImpl implements GenerateService {
+public class GenerateEntityCodeImpl implements GenerateCodeService {
 
 
     @Override
@@ -54,5 +54,11 @@ public class GenerateEntityImpl implements GenerateService {
 
         sb.append("}");
         return sb.toString();
+    }
+
+    @Override
+    public String path(GenerateRequest request) {
+
+        return CodeHelper.javaPath(request.getJavaPackage()) + "/entity/" + request.getEntityName() + ".java";
     }
 }
