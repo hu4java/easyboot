@@ -27,6 +27,7 @@ public class GenerateControllerCodeImpl implements GenerateCodeService {
         sb.append("import ").append(prefixPackage).append(".entity.").append(request.getEntityName()).append(";\n");
         sb.append("import ").append(prefixPackage).append(".condition.").append(conditionName).append(";\n");
         sb.append("import com.hu4java.base.result.Result;\n");
+        sb.append("import com.hu4java.base.request.PageRequest;\n");
         sb.append("import org.springframework.beans.factory.annotation.Autowired;\n");
         sb.append("import org.springframework.web.bind.annotation.GetMapping;\n");
         sb.append("import org.springframework.web.bind.annotation.PostMapping;\n");
@@ -44,7 +45,8 @@ public class GenerateControllerCodeImpl implements GenerateCodeService {
         sb.append("\t@GetMapping(\"/list\")\n");
         sb.append("\tpublic Result<Page<").append(request.getEntityName()).append(">> list(PageRequest<")
                 .append(request.getEntityName()).append("> request) {\n");
-        sb.append("\t\tpage = ").append(serviceInstanceName).append(".listByPage(request, request.queryWrapper());\n");
+        sb.append("\t\tPage<").append(request.getEntityName()).append("> page = request.toPage();");
+        sb.append("\t\tpage = ").append(serviceInstanceName).append(".listByPage(page, request.queryWrapper());\n");
         sb.append("\t\treturn Result.success(page);\n");
         sb.append("\t}\n");
         sb.append("\n}");

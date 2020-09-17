@@ -34,7 +34,8 @@ public class GenerateConditionCodeImpl implements GenerateCodeService {
         // 类主体
         sb.append("@Getter\n");
         sb.append("@Setter\n");
-        sb.append("public class ").append(request.getEntityName()).append("Condition extends Condition {\n");
+        sb.append("public class ").append(request.getEntityName())
+                .append("Condition extends Condition<").append(request.getEntityName()).append("> {\n");
         sb.append("\tprivate static final long serialVersionUID = -1L;\n\n");
 
         // 字段
