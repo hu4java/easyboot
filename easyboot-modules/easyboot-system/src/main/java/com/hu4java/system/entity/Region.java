@@ -1,9 +1,12 @@
 package com.hu4java.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.hu4java.base.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * 区域表
@@ -57,5 +60,8 @@ public class Region extends BaseEntity {
 
 	/** 合称*/
 	private String mergerName;
+
+	@TableField(exist = false)
+	private List<Region> children;
 
 }

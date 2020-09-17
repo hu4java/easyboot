@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hu4java.system.mapper.RegionMapper">
+    <resultMap id="regionMap" type="region" extends="BaseEntity.entity">
+        <!--名称-->
+        <result property="name" column="name"/>
+        <!--简称-->
+        <result property="shortName" column="short_name"/>
+        <!--全称-->
+        <result property="fullName" column="full_name"/>
+        <!--代码-->
+        <result property="code" column="code"/>
+        <!--父级 ID-->
+        <result property="pid" column="pid"/>
+        <!--名称拼音-->
+        <result property="pinyin" column="pinyin"/>
+        <!--等级:0-国家 1-省 2-市 3-区/县-->
+        <result property="level" column="level"/>
+        <!--邮编-->
+        <result property="zipCode" column="zip_code"/>
+        <!--电话区号-->
+        <result property="phoneCode" column="phone_code"/>
+        <!--首字符-->
+        <result property="firstLetter" column="first_letter"/>
+        <!--经度-->
+        <result property="longitude" column="longitude"/>
+        <!--纬度-->
+        <result property="latitude" column="latitude"/>
+        <!--父级ID字符串-->
+        <result property="pids" column="pids"/>
+        <!--合称-->
+        <result property="mergerName" column="merger_name"/>
+    </resultMap>
+
+    <sql id="allColumnSql">
+		t.id,
+		t.create_by,
+		t.create_time,
+		t.update_by,
+		t.update_time,
+		t.is_delete,
+		t.version,
+		t.name,
+		t.short_name,
+		t.full_name,
+		t.code,
+		t.pid,
+		t.pinyin,
+		t.level,
+		t.zip_code,
+		t.phone_code,
+		t.first_letter,
+		t.longitude,
+		t.latitude,
+		t.pids,
+		t.merger_name
+
+	</sql>
+
+</mapper>
