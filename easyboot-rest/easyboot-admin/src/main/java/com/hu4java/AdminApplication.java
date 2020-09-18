@@ -8,10 +8,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @EnableCaching
 @SpringBootApplication
-public class EasyBootAdminApiApplication {
+public class AdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EasyBootAdminApiApplication.class, args);
+        SpringApplication.run(AdminApplication.class, args);
     }
 
 }

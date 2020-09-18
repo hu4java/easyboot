@@ -1,19 +1,26 @@
-package com.hu4java.common.manager.storage;
+package com.hu4java.common.manager.storage.manager;
 
+import com.hu4java.common.manager.storage.StorageManager;
+import com.hu4java.common.manager.storage.StorageProperties;
 import com.hu4java.util.GsonUtils;
 import com.hu4java.util.RandomUtils;
 import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 
 /**
+ * 七牛对象存储 Kodo
  * @author chenzhenhu
  */
 @Slf4j
@@ -23,6 +30,7 @@ public class QiniuStorageManager implements StorageManager {
 
     private Auth auth;
     private BucketManager bucketManager;
+    private UploadManager uploadManager;
     private Map<String, String> returnBodyMap = new HashMap<>(16);
 
     public QiniuStorageManager(StorageProperties properties) {
@@ -37,20 +45,25 @@ public class QiniuStorageManager implements StorageManager {
         returnBodyMap.put("ext", "$(ext)");
         Configuration configuration = new Configuration();
         this.bucketManager = new BucketManager(this.auth, configuration);
+        this.uploadManager = new UploadManager(configuration);
     }
 
     @Override
     public String uploadToken() {
         String key = "common/file/" + RandomUtils.uuid();
         Map<String, String> returnBody = new HashMap<>();
-        returnBody.put("url", properties.getDomain() + "/" + key);
+        if (properties.getDomain().endsWith("/")) {
+            returnBody.put("url", properties.getDomain() + key);
+        } else {
+            returnBody.put("url", properties.getDomain() + "/" + key);
+        }
+
         returnBody.putAll(this.returnBodyMap);
 
         StringMap policy = new StringMap();
         policy.put("returnBody", GsonUtils.toJson(returnBody));
         policy.put("forceSaveKey", true);
         policy.put("saveKey",key);
-
         return auth.uploadToken(properties.getBucket(), null, properties.getExpireSeconds(), policy);
     }
 

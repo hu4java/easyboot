@@ -24,6 +24,10 @@ public class StorageProperties {
     private String sk;
     /** 空间名*/
     private String bucket;
+    /** 阿里云 endpoint*/
+    private String endpoint;
     /** token 过期时间(秒)*/
     private long expireSeconds = 3600;
+    /** 本地存储目录*/
+    private String dir;
 }
