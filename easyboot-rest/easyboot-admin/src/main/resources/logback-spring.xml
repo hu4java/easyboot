@@ -127,6 +127,15 @@
         </root>
     </springProfile>
 
+    <springProfile name="preview">
+        <logger name="com.hu4java" level="info" />
+        <root level="info">
+            <appender-ref ref="info" />
+            <appender-ref ref="warn" />
+            <appender-ref ref="error" />
+        </root>
+    </springProfile>
+
     <springProfile name="prod">
         <logger name="com.hu4java" level="info" />
         <root level="info">
