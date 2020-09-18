@@ -89,6 +89,21 @@
             </properties>
         </profile>
         <profile>
+            <id>preview</id>
+            <properties>
+                <spring.profiles.active>preview</spring.profiles.active>
+                <db.url>jdbc:mysql:localhost/easyboot</db.url>
+                <db.username>root</db.username>
+                <db.password>root</db.password>
+                <storage.enable>true</storage.enable>
+                <storage.type>qiniu</storage.type>
+                <storage.ak>your ak</storage.ak>
+                <storage.sk>your sk</storage.sk>
+                <storage.bucket>your bucket</storage.bucket>
+                <storage.domain>your domain</storage.domain>
+            </properties>
+        </profile>
+        <profile>
             <id>prod</id>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
