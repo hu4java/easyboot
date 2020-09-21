@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hu4java.generate.mapper.TableMapper">
-    <resultMap type="com.hu4java.generate.entity.Table" id="tableMap">
+<mapper namespace="com.huuu.generate.mapper.TableMapper">
+    <resultMap type="com.huuu.generate.entity.Table" id="tableMap">
         <result column="table_name" property="tableName"/>
         <result column="table_comment" property="tableComment"/>
         <result column="table_schema" property="tableSchema"/>

@@ -112,14 +112,14 @@
     </appender>
 
     <springProfile name="dev">
-        <logger name="com.hu4java" level="debug" />
+        <logger name="com.huuu" level="debug" />
         <root level="debug">
             <appender-ref ref="console" />
         </root>
     </springProfile>
 
     <springProfile name="test">
-        <logger name="com.hu4java" level="info" />
+        <logger name="com.huuu" level="info" />
         <root level="info">
             <appender-ref ref="info" />
             <appender-ref ref="warn" />
@@ -128,7 +128,7 @@
     </springProfile>
 
     <springProfile name="preview">
-        <logger name="com.hu4java" level="info" />
+        <logger name="com.huuu" level="info" />
         <root level="info">
             <appender-ref ref="info" />
             <appender-ref ref="warn" />
@@ -137,7 +137,7 @@
     </springProfile>
 
     <springProfile name="prod">
-        <logger name="com.hu4java" level="info" />
+        <logger name="com.huuu" level="info" />
         <root level="info">
             <appender-ref ref="info" />
             <appender-ref ref="warn" />

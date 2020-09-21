@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>easyboot</artifactId>
-        <groupId>com.hu4java</groupId>
+        <groupId>com.huuu</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -24,7 +24,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.hu4java</groupId>
+            <groupId>com.huuu</groupId>
             <artifactId>easyboot-common-core</artifactId>
             <version>1.0.0</version>
         </dependency>

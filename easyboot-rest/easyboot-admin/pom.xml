@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>easyboot-rest</artifactId>
-        <groupId>com.hu4java</groupId>
+        <groupId>com.huuu</groupId>
         <version>1.0.0</version>
     </parent>
     <artifactId>easyboot-admin</artifactId>
@@ -18,17 +18,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.hu4java</groupId>
+            <groupId>com.huuu</groupId>
             <artifactId>easyboot-common-core</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
-            <groupId>com.hu4java</groupId>
+            <groupId>com.huuu</groupId>
             <artifactId>easyboot-system</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
-            <groupId>com.hu4java</groupId>
+            <groupId>com.huuu</groupId>
             <artifactId>easyboot-generate</artifactId>
             <version>1.0.0</version>
         </dependency>
