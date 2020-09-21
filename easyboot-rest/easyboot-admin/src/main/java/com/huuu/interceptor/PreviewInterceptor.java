@@ -3,7 +3,6 @@ package com.huuu.interceptor;
 import com.huuu.base.result.Result;
 import com.huuu.base.result.ResultCode;
 import com.huuu.util.GsonUtils;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author chenzhenhu
  */
-@Profile("preview")
 @Component
 public class PreviewInterceptor implements HandlerInterceptor {
 

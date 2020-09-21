@@ -4,7 +4,7 @@ server:
     context-path: /admin
 spring:
   application:
-    name: EasyBootAdminApi
+    name: EasyBootAdmin
   profiles:
     active: "@spring.profiles.active@"
   jackson:
