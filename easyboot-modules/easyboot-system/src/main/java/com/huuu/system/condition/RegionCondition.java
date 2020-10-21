@@ -5,6 +5,7 @@ import com.huuu.base.condition.Condition;
 import com.huuu.system.entity.Region;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 区域表
@@ -60,7 +61,16 @@ public class RegionCondition extends Condition<Region> {
 
 	@Override
 	public LambdaQueryWrapper<Region> queryWrapper() {
-		return null;
+		LambdaQueryWrapper<Region> queryWrapper = new LambdaQueryWrapper<>();
+		if (StringUtils.isNotBlank(name)) {
+			queryWrapper.like(Region::getName, name);
+		}
+
+		if (null != level) {
+			queryWrapper.eq(Region::getLevel, level);
+		}
+
+		return queryWrapper;
 	}
 
 }

@@ -19,6 +19,7 @@ public class MenuTreeTableResponse extends BaseResponse {
     private Long id;
     /** 标题*/
     private String title;
+    private String routeName;
     /** 权限码*/
     private String code;
     /** 上级id*/
