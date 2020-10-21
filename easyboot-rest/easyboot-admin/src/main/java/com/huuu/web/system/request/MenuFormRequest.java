@@ -45,6 +45,8 @@ public class MenuFormRequest extends BaseRequest {
     private String component;
     /** 隐藏菜单*/
     private boolean hideChildrenInMenu;
+    /** 是否默认组件: 0-默认 1-不是*/
+    private boolean defaultComponent;
     /** 排序*/
     @NotNull(message = "排序不能为空")
     private Integer orderNum;

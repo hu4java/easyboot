@@ -88,6 +88,7 @@ public class ShiroConfiguration {
         sessionManager.setSessionDAO(redisSessionDao);
         sessionManager.setGlobalSessionTimeout(60 * 60 * 1000L); // 1小时
         sessionManager.setSessionIdUrlRewritingEnabled(false);
+        sessionManager.setDeleteInvalidSessions(true);
         return sessionManager;
     }
 

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
-import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.io.Serializable;
@@ -79,16 +78,17 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
             return;
         }
         // 是否已登录
-        Object authenticatedAttribute = session.getAttribute(DefaultSubjectContext.AUTHENTICATED_SESSION_KEY);
-        if (null == authenticatedAttribute) {
-
-            this.redisTemplate.opsForValue().set(getKey(session.getId()), session, 10, TimeUnit.SECONDS);
-            return;
-        }
-        boolean status = (Boolean) authenticatedAttribute;
-        if (status) {
-            this.redisTemplate.opsForValue().set(getKey(session.getId()), session, session.getTimeout(), TimeUnit.MILLISECONDS);
-        }
+//        Object authenticatedAttribute = session.getAttribute(DefaultSubjectContext.AUTHENTICATED_SESSION_KEY);
+//        if (null == authenticatedAttribute) {
+//
+//            this.redisTemplate.opsForValue().set(getKey(session.getId()), session, 10, TimeUnit.SECONDS);
+//            return;
+//        }
+//        boolean status = (Boolean) authenticatedAttribute;
+//        if (status) {
+//            this.redisTemplate.opsForValue().set(getKey(session.getId()), session, session.getTimeout(), TimeUnit.MILLISECONDS);
+//        }
+        this.redisTemplate.opsForValue().set(getKey(session.getId()), session, session.getTimeout(), TimeUnit.MILLISECONDS);
     }
 
     private String getKey(Serializable sessionId) {

@@ -46,6 +46,8 @@ public class Menu extends BaseEntity {
     private Boolean hideChildrenInMenu;
     /** 排序*/
     private Integer orderNum;
+    /** 是否默认组件: 0-默认 1-不是*/
+    private Boolean defaultComponent;
 
     @TableField(exist = false)
     private List<Menu> children;
